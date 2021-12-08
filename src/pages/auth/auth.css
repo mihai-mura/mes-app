@@ -1,0 +1,139 @@
+.page_login {
+  background-image: url("./images/background.jpg");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+}
+
+.login_form, .register_form {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.login_form *, .register_form * {
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.login_form .login_title, .register_form .login_title, .register_form .register_title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  color: #fbf5f3;
+  font-family: "Outfit", sans-serif;
+}
+
+.login_form input, .register_form input {
+  height: 45px;
+  width: 250px;
+  margin-top: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: rgba(6, 22, 71, 0.6);
+  font-family: "Outfit", sans-serif;
+  font-size: 15px;
+  color: #fbf5f3;
+}
+
+.login_form input::-webkit-input-placeholder, .register_form input::-webkit-input-placeholder {
+  color: #bebebe;
+}
+
+.login_form input:-ms-input-placeholder, .register_form input:-ms-input-placeholder {
+  color: #bebebe;
+}
+
+.login_form input::-ms-input-placeholder, .register_form input::-ms-input-placeholder {
+  color: #bebebe;
+}
+
+.login_form input::placeholder, .register_form input::placeholder {
+  color: #bebebe;
+}
+
+.login_form .login_button, .register_form .login_button, .register_form .register_button {
+  width: 200px;
+  height: 50px;
+  margin-top: 20px;
+  border-radius: 25px;
+  border: none;
+  background-color: rgba(31, 47, 121, 0.635);
+  color: #fbf5f3;
+  font-family: "Outfit", sans-serif;
+  font-size: 18px;
+}
+
+.login_form .login_button:hover, .register_form .login_button:hover, .register_form .register_button:hover {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+  cursor: pointer;
+}
+
+.register_form .register_name {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 30px;
+}
+
+.register_form .register_name input {
+  width: 150px;
+}
+
+.auth_link {
+  margin-top: 20px;
+  color: #fbf5f3;
+  font-family: "Outfit", sans-serif;
+  text-decoration: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+@media screen and (max-width: 400px) {
+  .register_form .register_name {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 0;
+  }
+  .register_form .register_name input {
+    width: 250px;
+  }
+}
+/*# sourceMappingURL=auth.css.map */
