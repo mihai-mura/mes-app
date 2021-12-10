@@ -1,6 +1,8 @@
-import "./auth.css";
-import RegisterForm from "../../components/RegisterForm";
-import { createHash } from "crypto";
+import './auth.css';
+import RegisterForm from '../../components/RegisterForm';
+import { useNavigate } from 'react-router-dom';
+import { createHash } from 'crypto';
+
 function Register() {
 	const registerDetails = {
 		fname: null,
@@ -8,6 +10,7 @@ function Register() {
 		email: null,
 		passwd: null,
 	};
+	const navigate = useNavigate();
 
 	function handleRegister(fname, lname, email, passwd) {
 		registerDetails.fname = fname;
@@ -18,13 +21,15 @@ function Register() {
 		registerDetails.passwd = hash(registerDetails.passwd);
 
 		if (searchIfAccountExistsLocal()) {
-			alert("Email already exists!");
+			alert('Email already exists!');
 		} else {
 			registerToLocal();
 		}
+
+		navigate('/login');
 	}
 
-	//local stuff start
+	//!local stuff start
 	function searchIfAccountExistsLocal() {
 		if (localStorage.getItem(`${registerDetails.email}-email`)) {
 			return true;
@@ -50,10 +55,10 @@ function Register() {
 			registerDetails.passwd
 		);
 	}
-	//local stuff end
+	//!local stuff end
 
 	function hash(input) {
-		return createHash("sha256").update(input).digest("hex");
+		return createHash('sha256').update(input).digest('hex');
 	}
 
 	return (

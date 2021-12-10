@@ -1,33 +1,34 @@
-import Message from "./Message";
+import Message from './Message';
 
-function Chat() {
-    return (
-        <div className="chat">
-                <Message />
-                <Message className='message_right'/>
-                <Message />
-                <Message className='message_right'/>
-                <Message className='message_right'/>
-                <Message className='message_right'/>
-                <Message />
-                <Message />
-                <Message />
-                <Message />
-                <Message className='message_right'/>
-                <Message className='message_right'/>
-                <Message className='message_right'/>
-                <Message />
-                <Message />
-                <Message className='message_right'/>
-                <Message className='message_right'/>
-                <Message />
-                <Message className='message_right'/>
-                <Message />
-                <Message className='message_right'/>
-                <Message className='message_right'/>
-                <Message className='message_right'/>
-        </div>
-    );
+function Chat(props) {
+	//todo set get messages
+	return (
+		<div className='chat'>
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />
+		</div>
+	);
 }
 
 export default Chat;

@@ -1,124 +1,164 @@
-@import "../../style/colors";
+@import '../../style/colors';
 
 .page_login {
-  background-image: url("./images/background.jpg");
-  background-size: cover;
-  width: 100vw;
-  height: 100vh;
+	background-image: url('./images/background.jpg');
+	background-size: cover;
+	width: 100vw;
+	height: 100vh;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
 }
 
 .login_form {
-  width: fit-content;
-  height: fit-content;
+	width: fit-content;
+	height: fit-content;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
-  * {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-  }
+	* {
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+	}
 
-  .login_title {
-    margin-top: 20px;
-    margin-bottom: 20px;
+	.login_title {
+		margin-top: 20px;
+		margin-bottom: 20px;
 
-    box-shadow: none;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+		box-shadow: none;
+		text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 
-    text-align: center;
-    color: $snow;
-    font-family: "Outfit", sans-serif;
-  }
+		text-align: center;
+		color: $snow;
+		font-family: 'Outfit', sans-serif;
+	}
 
-  input {
-    height: 45px;
-    width: 250px;
-    margin-top: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 10px;
-    border: none;
+	input {
+		height: 45px;
+		width: 250px;
+		margin-top: 30px;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 10px;
+		border: none;
 
-    background-color: rgba(6, 22, 71, 0.6);
+		background-color: rgba(6, 22, 71, 0.6);
 
-    font-family: "Outfit", sans-serif;
-    font-size: 15px;
-    color: $snow;
+		font-family: 'Outfit', sans-serif;
+		font-size: 15px;
+		color: $snow;
 
-    &::placeholder {
-      color: rgb(190, 190, 190);
-    }
-  }
+		&::placeholder {
+			color: rgb(190, 190, 190);
+		}
+	}
 
-  .login_button {
-    width: 200px;
-    height: 50px;
-    margin-top: 20px;
+	.remember_checkbox {
+		margin-top: 20px;
+		display: inline-flex;
+		align-items: center;
+		cursor: pointer;
+		box-shadow: none;
 
-    border-radius: 25px;
-    border: none;
+		font-family: 'Outfit', sans-serif;
+		font-size: 15px;
+		color: $snow;
+		text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+		.checkbox_input {
+			display: none;
 
-    background-color: rgba(31, 47, 121, 0.635);
+			&:checked + .checkbox_box {
+				background-color: $bluetiful;
+				border-color: $bluetiful;
+			}
+		}
 
-    color: $snow;
-    font-family: "Outfit", sans-serif;
-    font-size: 18px;
+		.checkbox_box {
+			width: 1.25em;
+			height: 1.25em;
+			border: 2px solid #ccc;
+			border-radius: 3px;
+			background-color: white;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-right: 10px;
+			flex-shrink: 0;
+			transition: background 0.15s, border-color 0.15s;
 
-    &:hover {
-      filter: brightness(1.2);
-      cursor: pointer;
-    }
-  }
+			&::after {
+				content: '\2714';
+				color: #ebebeb;
+			}
+		}
+	}
+
+	.login_button {
+		width: 200px;
+		height: 50px;
+		margin-top: 20px;
+
+		border-radius: 25px;
+		border: none;
+
+		background-color: rgba(31, 47, 121, 0.635);
+
+		color: $snow;
+		font-family: 'Outfit', sans-serif;
+		font-size: 18px;
+
+		&:hover {
+			filter: brightness(1.2);
+			cursor: pointer;
+		}
+	}
 }
 
 .register_form {
-  @extend .login_form;
+	@extend .login_form;
 
-  .register_name {
-    box-shadow: none;
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
+	.register_name {
+		box-shadow: none;
+		display: flex;
+		flex-direction: row;
+		gap: 30px;
 
-    input {
-      width: 150px;
-    }
-  }
+		input {
+			width: 150px;
+		}
+	}
 
-  .register_title {
-    @extend .login_title;
-  }
+	.register_title {
+		@extend .login_title;
+	}
 
-  .register_button {
-    @extend .login_button;
-  }
+	.register_button {
+		@extend .login_button;
+	}
 }
 
 .auth_link {
-  margin-top: 20px;
+	margin-top: 20px;
 
-  color: $snow;
-  font-family: "Outfit", sans-serif;
-  text-decoration: none;
+	color: $snow;
+	font-family: 'Outfit', sans-serif;
+	text-decoration: none;
 
-  box-shadow: none;
+	box-shadow: none;
 }
 
 @media screen and (max-width: 400px) {
-  .register_form {
-    .register_name {
-      flex-direction: column;
-      gap: 0;
+	.register_form {
+		.register_name {
+			flex-direction: column;
+			gap: 0;
 
-      input {
-        width: 250px;
-      }
-    }
-  }
+			input {
+				width: 250px;
+			}
+		}
+	}
 }

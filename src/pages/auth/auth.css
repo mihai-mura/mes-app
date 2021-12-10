@@ -47,7 +47,7 @@
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   text-align: center;
   color: #fbf5f3;
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
 }
 
 .login_form input, .register_form input {
@@ -59,7 +59,7 @@
   border-radius: 10px;
   border: none;
   background-color: rgba(6, 22, 71, 0.6);
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 15px;
   color: #fbf5f3;
 }
@@ -80,6 +80,59 @@
   color: #bebebe;
 }
 
+.login_form .remember_checkbox, .register_form .remember_checkbox {
+  margin-top: 20px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: #fbf5f3;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.login_form .remember_checkbox .checkbox_input, .register_form .remember_checkbox .checkbox_input {
+  display: none;
+}
+
+.login_form .remember_checkbox .checkbox_input:checked + .checkbox_box, .register_form .remember_checkbox .checkbox_input:checked + .checkbox_box {
+  background-color: #2568e4;
+  border-color: #2568e4;
+}
+
+.login_form .remember_checkbox .checkbox_box, .register_form .remember_checkbox .checkbox_box {
+  width: 1.25em;
+  height: 1.25em;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-right: 10px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -webkit-transition: background 0.15s, border-color 0.15s;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.login_form .remember_checkbox .checkbox_box::after, .register_form .remember_checkbox .checkbox_box::after {
+  content: '\2714';
+  color: #ebebeb;
+}
+
 .login_form .login_button, .register_form .login_button, .register_form .register_button {
   width: 200px;
   height: 50px;
@@ -88,7 +141,7 @@
   border: none;
   background-color: rgba(31, 47, 121, 0.635);
   color: #fbf5f3;
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 18px;
 }
 
@@ -118,7 +171,7 @@
 .auth_link {
   margin-top: 20px;
   color: #fbf5f3;
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   text-decoration: none;
   -webkit-box-shadow: none;
           box-shadow: none;
