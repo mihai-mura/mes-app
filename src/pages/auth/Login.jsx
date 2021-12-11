@@ -6,20 +6,41 @@ import { ContextLoggedUser } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-	const { loggedUser, setLoggedUser } = useContext(ContextLoggedUser);
+	const { setLoggedUser } = useContext(ContextLoggedUser);
 	const navigate = useNavigate();
 
 	//check if user details are remembered
+	//! set logged user context based on local
 	useEffect(() => {
 		if (sessionStorage.getItem('loggedUser')) {
-			setLoggedUser(sessionStorage.getItem('loggedUser'));
+			setLoggedUser(
+				{
+					email: sessionStorage.getItem('loggedUser'),
+					fname: localStorage.getItem(
+						`${sessionStorage.getItem('loggedUser')}-fname`
+					),
+					lname: localStorage.getItem(
+						`${sessionStorage.getItem('loggedUser')}-lname`
+					),
+				},
+				navigate('/mes')
+			);
 		} else if (localStorage.getItem('loggedUser')) {
-			setLoggedUser(localStorage.getItem('loggedUser'));
+			setLoggedUser(
+				{
+					email: localStorage.getItem('loggedUser'),
+					fname: localStorage.getItem(
+						`${localStorage.getItem('loggedUser')}-fname`
+					),
+					lname: localStorage.getItem(
+						`${localStorage.getItem('loggedUser')}-lname`
+					),
+				},
+				() => navigate('/mes')
+			);
 		}
-		if (loggedUser !== null) {
-			navigate('/mes');
-		}
-	});
+	}, []);
+	//!
 
 	const loginDetails = {
 		email: null,
@@ -33,15 +54,21 @@ function Login() {
 
 		loginDetails.passwd = hash(loginDetails.passwd);
 
-		if (searchUserLocal()) {
+		if (searchUser()) {
 			if (verifyPass()) {
 				//* remember details
+				//! set user from local
 				if (loginDetails.rememberDetails) {
 					localStorage.setItem('loggedUser', loginDetails.email);
 				} else {
 					sessionStorage.setItem('loggedUser', loginDetails.email);
 				}
-				setLoggedUser(loginDetails.email);
+				setLoggedUser({
+					email: localStorage.getItem(`${loginDetails.email}-email`),
+					fname: localStorage.getItem(`${loginDetails.email}-fname`),
+					lname: localStorage.getItem(`${loginDetails.email}-lname`),
+				});
+				//!
 				navigate('/mes');
 			} else {
 				alert('Passwords do not match!');
@@ -51,7 +78,7 @@ function Login() {
 		}
 	}
 
-	//!local stuff start
+	//! verify account local
 
 	function verifyPass() {
 		if (
@@ -62,7 +89,7 @@ function Login() {
 		else return false;
 	}
 
-	function searchUserLocal() {
+	function searchUser() {
 		if (
 			localStorage.getItem(`${loginDetails.email}-email`) ===
 			loginDetails.email
@@ -71,7 +98,7 @@ function Login() {
 		else return false;
 	}
 
-	//!local stuff end
+	//!
 
 	function hash(input) {
 		return createHash('sha256').update(input).digest('hex');

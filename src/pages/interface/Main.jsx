@@ -6,21 +6,15 @@ import { ContextLoggedUser } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 
 function Main() {
-	const { loggedUser, setLoggedUser } = useContext(ContextLoggedUser);
+	const { loggedUser } = useContext(ContextLoggedUser);
 	const navigate = useNavigate();
 
 	//check if user details are remembered
 	useEffect(() => {
-		if (loggedUser !== null) {
-			if (sessionStorage.getItem('loggedUser')) {
-				setLoggedUser(sessionStorage.getItem('loggedUser'));
-			} else if (localStorage.getItem('loggedUser')) {
-				setLoggedUser(localStorage.getItem('loggedUser'));
-			}
-		} else {
+		if (!loggedUser.email) {
 			navigate('/login');
 		}
-	});
+	}, []);
 
 	//todo context open friend
 

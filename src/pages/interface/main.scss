@@ -114,6 +114,13 @@
 			margin-top: 10px;
 		}
 	}
+
+	.contact_selected {
+		background-color: $bluetiful;
+		&:hover {
+			background-color: $bluetiful;
+		}
+	}
 }
 
 @keyframes panel-close {
@@ -150,8 +157,6 @@
 		div {
 			display: none;
 		}
-	}
-	.contact {
 		justify-content: center;
 	}
 }

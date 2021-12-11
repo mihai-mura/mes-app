@@ -3,7 +3,7 @@ import Start from './pages/start/Start';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Main from './pages/interface/Main';
-import { LoggedUser } from './AppContext';
+import { LoggedUser, Friends, SelectedFriend } from './AppContext';
 
 function App() {
 	return (
@@ -13,7 +13,17 @@ function App() {
 					<Route exact path='/' element={<Start />} />
 					<Route exact path='/login' element={<Login />} />
 					<Route exact path='/register' element={<Register />} />
-					<Route exact path='/mes' element={<Main />} />
+					<Route
+						exact
+						path='/mes'
+						element={
+							<Friends>
+								<SelectedFriend>
+									<Main />
+								</SelectedFriend>
+							</Friends>
+						}
+					/>
 				</Routes>
 			</LoggedUser>
 		</Router>

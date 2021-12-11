@@ -151,6 +151,14 @@
   margin-top: 10px;
 }
 
+.left_panel .contact_selected {
+  background-color: #2568e4;
+}
+
+.left_panel .contact_selected:hover {
+  background-color: #2568e4;
+}
+
 @-webkit-keyframes panel-close {
   100% {
     width: 100px;
@@ -201,18 +209,18 @@
   display: none;
 }
 
+.left_panel_closed .contacts_list .contact {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .left_panel_closed .contacts_list .contact h2 {
   display: block;
 }
 
 .left_panel_closed .contacts_list .contact div {
   display: none;
-}
-
-.left_panel_closed .contact {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 .left_panel_open {
