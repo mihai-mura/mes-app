@@ -16,11 +16,15 @@ function Main() {
 		}
 	}, []);
 
-	//todo context open friend
+	function userLogout() {
+		if (localStorage.getItem('loggedUser')) localStorage.removeItem('loggedUser');
+		else sessionStorage.removeItem('loggedUser');
+		navigate('/login');
+	}
 
 	return (
 		<div className='page_main'>
-			<MainLeftPanel />
+			<MainLeftPanel logout={userLogout} />
 			<MainRightPanel />
 		</div>
 	);

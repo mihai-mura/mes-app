@@ -1,13 +1,16 @@
-import { FiMenu } from 'react-icons/fi';
+import { FiMenu, FiSettings } from 'react-icons/fi';
 
 function Head(props) {
 	return (
 		<div className='head'>
-			<div className='user_info'>
+			<div>
 				<h4>{props.name}</h4>
 				<p>{props.email}</p>
 			</div>
-			<FiMenu className='menu_icon' onClick={props.menuClick} />
+			<div>
+				<FiSettings className='settings_icon' onClick={props.settingsClick} />
+				<FiMenu className='menu_icon' onClick={props.menuClick} />
+			</div>
 		</div>
 	);
 }
