@@ -2,10 +2,11 @@ import './main.css';
 import MainLeftPanel from '../../components/MainLeftPanel';
 import MainRightPanel from '../../components/MainRightPanel';
 import { useContext, useEffect } from 'react';
-import { ContextFriends, ContextLoggedUser, ContextSelectedFriend } from '../../AppContext';
+import { ContextFriends, ContextLoggedUser, ContextMessages, ContextSelectedFriend } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 import AddFriendPopup from '../../components/AddFriendPopup';
 import { useState } from 'react/cjs/react.development';
+import ChangeNamePopup from '../../components/ChangeNamePopup';
 
 function Main() {
 	const { loggedUser, setLoggedUser } = useContext(ContextLoggedUser);
@@ -13,6 +14,7 @@ function Main() {
 	const { setSelectedFriend } = useContext(ContextSelectedFriend);
 	const navigate = useNavigate();
 	const [searchFriendPopup, setSearchFriendPopup] = useState(false);
+	const [changeNamePopup, setChangeNamePopup] = useState(false);
 
 	useEffect(() => {
 		//check if user details are remembered
@@ -39,19 +41,32 @@ function Main() {
 		navigate('/login');
 	}
 
-	//search friend func
-	function toggleSearchPopup() {
+	function toggleSearchFriendPopup() {
 		setSearchFriendPopup(!searchFriendPopup);
+	}
+
+	function toggleChangeNamePopup() {
+		setChangeNamePopup(!changeNamePopup);
 	}
 
 	return (
 		<div className='page_main'>
-			<MainLeftPanel logout={userLogout} openSearchPopup={toggleSearchPopup} />
+			<MainLeftPanel
+				logout={userLogout}
+				openSearchFriendPopup={toggleSearchFriendPopup}
+				openChangeNamePopup={toggleChangeNamePopup}
+			/>
 			<MainRightPanel />
+			{changeNamePopup ? (
+				<>
+					<div className='acrylic' />
+					<ChangeNamePopup toggle={toggleChangeNamePopup} />
+				</>
+			) : null}
 			{searchFriendPopup ? (
 				<>
 					<div className='acrylic' />
-					<AddFriendPopup close={toggleSearchPopup} />
+					<AddFriendPopup toggle={toggleSearchFriendPopup} />
 				</>
 			) : null}
 		</div>

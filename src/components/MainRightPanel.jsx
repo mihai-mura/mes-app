@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useEffect, useState } from 'react';
-import { ContextSelectedFriend } from '../AppContext';
+import { ContextMessages, ContextSelectedFriend } from '../AppContext';
 import Chat from './Chat';
 import ChatTitle from './ChatTitle';
 import Message from './Message';
@@ -10,7 +10,7 @@ function MainRightPannel() {
 	const { selectedFriend } = useContext(ContextSelectedFriend);
 	const [inputMessage, setInputMessage] = useState('');
 
-	const [messages, setMessages] = useState([]);
+	const { messages, setMessages } = useContext(ContextMessages);
 
 	//enter button
 	useEffect(() => {
@@ -27,7 +27,15 @@ function MainRightPannel() {
 
 	//! set initial messages
 	useEffect(() => {
-		setMessages([<Message message='Lorem ipsum dolor sit amet.' />, <Message message='Lorem ipsum dolor sit amet.' right={true} />]);
+		setMessages([
+			<Message message='Lorem ipsum dolor sit amet.' />,
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />,
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />,
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />,
+			<Message message='Lorem ipsum dolor sit amet.' />,
+			<Message message='Lorem ipsum dolor sit amet.' />,
+			<Message message='Lorem ipsum dolor sit amet.' right={true} />,
+		]);
 	}, []);
 
 	function inputOnChange(event) {
@@ -35,6 +43,7 @@ function MainRightPannel() {
 	}
 
 	//* message transition corection
+	//! message send
 	function sendMessage() {
 		if (inputMessage !== '') {
 			setMessages([<Message message={inputMessage} right={true} />, ...messages]);

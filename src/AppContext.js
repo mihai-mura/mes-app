@@ -99,3 +99,10 @@ export function SelectedFriend(props) {
 
 	return <ContextSelectedFriend.Provider value={{ selectedFriend, setSelectedFriend }}>{props.children}</ContextSelectedFriend.Provider>;
 }
+
+export const ContextMessages = createContext(null);
+export function Messages(props) {
+	const [messages, setMessages] = useState([]);
+
+	return <ContextMessages.Provider value={{ messages, setMessages }}>{props.children}</ContextMessages.Provider>;
+}

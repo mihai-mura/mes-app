@@ -19,7 +19,11 @@ function MainLeftPannel(props) {
 	}
 
 	const panelClass = panelOpen ? 'left_panel left_panel_open' : 'left_panel left_panel_closed';
-	const listItem = settingsOpen ? <UserSettings logout={props.logout} /> : <ContactsList openSearchPopup={props.openSearchPopup} />;
+	const listItem = settingsOpen ? (
+		<UserSettings logout={props.logout} openChangeNamePopup={props.openChangeNamePopup} />
+	) : (
+		<ContactsList openSearchPopup={props.openSearchFriendPopup} />
+	);
 	return (
 		<div className={panelClass}>
 			<Head menuClick={menuClick} settingsClick={settingsClick} name={loggedUser.fname} email={loggedUser.email} />

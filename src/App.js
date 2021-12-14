@@ -3,7 +3,7 @@ import Start from './pages/start/Start';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Main from './pages/interface/Main';
-import { LoggedUser, Friends, SelectedFriend } from './AppContext';
+import { LoggedUser, Friends, SelectedFriend, Messages } from './AppContext';
 
 function App() {
 	return (
@@ -19,7 +19,9 @@ function App() {
 						element={
 							<Friends>
 								<SelectedFriend>
-									<Main />
+									<Messages>
+										<Main />
+									</Messages>
 								</SelectedFriend>
 							</Friends>
 						}

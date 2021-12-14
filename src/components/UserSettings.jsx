@@ -4,22 +4,7 @@ import { ContextLoggedUser } from '../AppContext';
 import { CgRename } from 'react-icons/cg';
 
 function UserSettings(props) {
-	const { loggedUser, setLoggedUser } = useContext(ContextLoggedUser);
-
-	function changeName() {
-		const fname = prompt('Set first name');
-		const lname = prompt('Set last name');
-		if (fname && lname) {
-			//! change user name local
-			localStorage.setItem(`${loggedUser.email}-fname`, fname);
-			localStorage.setItem(`${loggedUser.email}-lname`, lname);
-			setLoggedUser({
-				fname: fname,
-				lname: lname,
-				email: loggedUser.email,
-			});
-		}
-	}
+	const { loggedUser } = useContext(ContextLoggedUser);
 
 	//! implement profile pic everywhere
 	return (
@@ -36,7 +21,7 @@ function UserSettings(props) {
 					</div>
 				)}
 			</li>
-			<li onClick={changeName}>
+			<li onClick={props.openChangeNamePopup}>
 				<p>Set Name</p>
 				<CgRename className='name_icon' />
 			</li>
