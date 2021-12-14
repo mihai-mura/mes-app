@@ -23,13 +23,15 @@ function Contact(props) {
 	}, []);
 
 	function onContactClick() {
-		setSelectedFriend(friendDetails.email);
+		setSelectedFriend({
+			email: friendDetails.email,
+			fname: friendDetails.fname,
+			lname: friendDetails.lname,
+		});
 	}
 
 	return (
-		<div
-			className={selectedFriend === friendDetails.email ? 'contact contact_selected' : 'contact'}
-			onClick={onContactClick}>
+		<div className={selectedFriend.email === friendDetails.email ? 'contact contact_selected' : 'contact'} onClick={onContactClick}>
 			<h2>
 				{props.fname.charAt(0)}
 				{props.lname.charAt(0)}

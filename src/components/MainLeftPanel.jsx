@@ -10,6 +10,7 @@ function MainLeftPannel(props) {
 	const [settingsOpen, setSettingsOpen] = useState(false);
 
 	function menuClick() {
+		if (settingsOpen) setSettingsOpen(!settingsOpen);
 		setPanelOpen(!panelOpen);
 	}
 
@@ -18,7 +19,7 @@ function MainLeftPannel(props) {
 	}
 
 	const panelClass = panelOpen ? 'left_panel left_panel_open' : 'left_panel left_panel_closed';
-	const listItem = settingsOpen ? <UserSettings logout={props.logout} /> : <ContactsList />;
+	const listItem = settingsOpen ? <UserSettings logout={props.logout} /> : <ContactsList openSearchPopup={props.openSearchPopup} />;
 	return (
 		<div className={panelClass}>
 			<Head menuClick={menuClick} settingsClick={settingsClick} name={loggedUser.fname} email={loggedUser.email} />

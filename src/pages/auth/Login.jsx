@@ -16,12 +16,8 @@ function Login() {
 			setLoggedUser(
 				{
 					email: sessionStorage.getItem('loggedUser'),
-					fname: localStorage.getItem(
-						`${sessionStorage.getItem('loggedUser')}-fname`
-					),
-					lname: localStorage.getItem(
-						`${sessionStorage.getItem('loggedUser')}-lname`
-					),
+					fname: localStorage.getItem(`${sessionStorage.getItem('loggedUser')}-fname`),
+					lname: localStorage.getItem(`${sessionStorage.getItem('loggedUser')}-lname`),
 				},
 				navigate('/mes')
 			);
@@ -29,14 +25,10 @@ function Login() {
 			setLoggedUser(
 				{
 					email: localStorage.getItem('loggedUser'),
-					fname: localStorage.getItem(
-						`${localStorage.getItem('loggedUser')}-fname`
-					),
-					lname: localStorage.getItem(
-						`${localStorage.getItem('loggedUser')}-lname`
-					),
+					fname: localStorage.getItem(`${localStorage.getItem('loggedUser')}-fname`),
+					lname: localStorage.getItem(`${localStorage.getItem('loggedUser')}-lname`),
 				},
-				() => navigate('/mes')
+				navigate('/mes')
 			);
 		}
 	}, []);
@@ -81,20 +73,12 @@ function Login() {
 	//! verify account local
 
 	function verifyPass() {
-		if (
-			loginDetails.passwd ===
-			localStorage.getItem(`${loginDetails.email}-passwd`)
-		)
-			return true;
+		if (loginDetails.passwd === localStorage.getItem(`${loginDetails.email}-passwd`)) return true;
 		else return false;
 	}
 
 	function searchUser() {
-		if (
-			localStorage.getItem(`${loginDetails.email}-email`) ===
-			loginDetails.email
-		)
-			return true;
+		if (localStorage.getItem(`${loginDetails.email}-email`) === loginDetails.email) return true;
 		else return false;
 	}
 

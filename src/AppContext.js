@@ -8,9 +8,7 @@ export function LoggedUser(props) {
 		email: null,
 	});
 
-	return (
-		<ContextLoggedUser.Provider value={{ loggedUser, setLoggedUser }}>{props.children}</ContextLoggedUser.Provider>
-	);
+	return <ContextLoggedUser.Provider value={{ loggedUser, setLoggedUser }}>{props.children}</ContextLoggedUser.Provider>;
 }
 
 export const ContextFriends = createContext(null);
@@ -18,7 +16,7 @@ export function Friends(props) {
 	const [friends, setFriends] = useState([
 		{
 			email: 'mihai@email.com',
-			fname: 'Mihai',
+			fname: 'Mwewghwai',
 			lname: 'Mura',
 			message: 'Last message...',
 			messageTime: '19:21',
@@ -45,9 +43,9 @@ export function Friends(props) {
 			messageTime: '14:56',
 		},
 		{
-			email: 'lorem@email.com',
-			fname: 'lorem',
-			lname: 'ipsum',
+			email: 'dorel@email.com',
+			fname: 'Dorel',
+			lname: 'MareDorel',
 			message: 'Last message...',
 			messageTime: '14:56',
 		},
@@ -59,30 +57,30 @@ export function Friends(props) {
 			messageTime: '00:00',
 		},
 		{
-			email: 'lorem@email.com',
-			fname: 'Lorem',
-			lname: 'Ipsum',
+			email: 'eheh@email.com',
+			fname: 'Eheh',
+			lname: 'Amooo',
 			message: 'Last message...',
 			messageTime: '00:00',
 		},
 		{
-			email: 'lorem@email.com',
-			fname: 'Lorem',
-			lname: 'Ipsum',
+			email: 'lorus@email.com',
+			fname: 'Lorus',
+			lname: 'Ioioio',
 			message: 'Last message...',
 			messageTime: '00:00',
 		},
 		{
-			email: 'lorem@email.com',
-			fname: 'Lorem',
-			lname: 'Ipsum',
+			email: 'boss@email.com',
+			fname: 'Boss',
+			lname: 'Mmmmm',
 			message: 'Last message...',
 			messageTime: '00:00',
 		},
 		{
-			email: 'lorem@email.com',
-			fname: 'Lorem',
-			lname: 'Ipsum',
+			email: 'doru@email.com',
+			fname: 'Doru',
+			lname: 'Dragan',
 			message: 'Last message...',
 			messageTime: '00:00',
 		},
@@ -93,11 +91,11 @@ export function Friends(props) {
 
 export const ContextSelectedFriend = createContext(null);
 export function SelectedFriend(props) {
-	const [selectedFriend, setSelectedFriend] = useState(null);
+	const [selectedFriend, setSelectedFriend] = useState({
+		email: null,
+		fname: null,
+		lname: null,
+	});
 
-	return (
-		<ContextSelectedFriend.Provider value={{ selectedFriend, setSelectedFriend }}>
-			{props.children}
-		</ContextSelectedFriend.Provider>
-	);
+	return <ContextSelectedFriend.Provider value={{ selectedFriend, setSelectedFriend }}>{props.children}</ContextSelectedFriend.Provider>;
 }

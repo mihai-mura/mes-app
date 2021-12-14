@@ -1,25 +1,63 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { useEffect, useState } from 'react';
+import { ContextSelectedFriend } from '../AppContext';
 import Chat from './Chat';
 import ChatTitle from './ChatTitle';
+import Message from './Message';
+import { BiSend } from 'react-icons/bi';
 
 function MainRightPannel() {
-	const [openFriend, setOpenFriend] = useState({
-		id: 0,
-		fname: 'Mihai',
-		lname: 'Mura',
+	const { selectedFriend } = useContext(ContextSelectedFriend);
+	const [inputMessage, setInputMessage] = useState('');
+
+	const [messages, setMessages] = useState([]);
+
+	//enter button
+	useEffect(() => {
+		function listener(event) {
+			if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+				sendMessage();
+			}
+		}
+		document.addEventListener('keydown', listener);
+		return () => {
+			document.removeEventListener('keydown', listener);
+		};
 	});
+
+	//! set initial messages
+	useEffect(() => {
+		setMessages([<Message message='Lorem ipsum dolor sit amet.' />, <Message message='Lorem ipsum dolor sit amet.' right={true} />]);
+	}, []);
+
+	function inputOnChange(event) {
+		setInputMessage(event.target.value);
+	}
+
+	//* message transition corection
+	function sendMessage() {
+		if (inputMessage !== '') {
+			setMessages([<Message message={inputMessage} right={true} />, ...messages]);
+			setInputMessage('');
+		}
+	}
 
 	return (
 		<div className='right_panel'>
-			<ChatTitle fname={openFriend.fname} lname={openFriend.lname} />
-			<Chat friendId={openFriend.id} />
-			<input
-				className='message_input'
-				type='text'
-				name='message'
-				id='message'
-				placeholder='Message'
-			/>
+			<ChatTitle fname={selectedFriend.fname} lname={selectedFriend.lname} />
+			<Chat messages={messages} />
+			<div className='bottom_input'>
+				<input
+					className='message_input'
+					type='text'
+					name='message'
+					id='message'
+					placeholder='Message'
+					onChange={inputOnChange}
+					value={inputMessage}
+				/>
+				<BiSend className='send_icon' onClick={sendMessage} />
+			</div>
 		</div>
 	);
 }

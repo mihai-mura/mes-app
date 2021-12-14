@@ -1,5 +1,48 @@
 @import '../../style/colors';
 
+@keyframes panel-close {
+	100% {
+		width: 100px;
+	}
+}
+@keyframes panel-open {
+	0% {
+		width: 100px;
+	}
+	100% {
+		width: 500px;
+	}
+}
+
+@keyframes right-message-load {
+	from {
+		transform: translateX(100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes left-message-load {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes popup {
+	from {
+		transform: scale(0, 0);
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+		transform: scale(1, 1);
+	}
+}
+
 .page_main {
 	width: 100vw;
 	height: 100vh;
@@ -39,6 +82,7 @@
 		h4,
 		p {
 			margin-left: 20px;
+			margin-right: 10px;
 		}
 
 		div:last-of-type {
@@ -53,10 +97,17 @@
 			width: 25px;
 			height: 25px;
 
+			transition: transform;
+			transition-duration: 0.3s;
+			transition-timing-function: ease-in-out;
+
 			color: $fulvous;
 
 			&:hover {
 				cursor: pointer;
+			}
+			&:active {
+				transform: scale(0.95, 0.95);
 			}
 		}
 
@@ -66,8 +117,16 @@
 
 			color: $bluetiful;
 
+			transition: transform;
+			transition-duration: 0.3s;
+			transition-timing-function: ease-in-out;
+
 			&:hover {
 				cursor: pointer;
+			}
+
+			&:active {
+				transform: scale(0.95, 0.95);
 			}
 		}
 	}
@@ -94,13 +153,14 @@
 
 		li {
 			width: 100%;
-			height: 50px;
+			height: fit-content;
 			padding: 10px;
 			border-radius: 20px;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			background-color: $goldCrayola;
+			font-weight: 600;
 
 			color: $eerieBlack;
 
@@ -111,6 +171,33 @@
 			&:hover {
 				cursor: pointer;
 				transform: translateX(5px);
+			}
+
+			&:active {
+				transform: scale(0.95, 0.95);
+			}
+
+			.profile_img_initials {
+				width: 35px;
+				height: 35px;
+				border-radius: 50%;
+				background-color: $unitedNationsBlue;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.profile_img {
+				width: 35px;
+				height: 35px;
+				border-radius: 50%;
+				background-image: url('../../images/profileImg.jpg');
+				background-size: contain;
+			}
+
+			.name_icon {
+				width: 20px;
+				height: 20px;
 			}
 
 			.logout_icon {
@@ -141,6 +228,36 @@
 		gap: 10px;
 	}
 
+	.add_friend {
+		width: auto;
+		padding: 8px;
+		border-radius: 20px;
+		background-color: $unitedNationsBlue;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		font-weight: 600;
+
+		transition: transform;
+		transition-duration: 0.3s;
+		transition-timing-function: ease-in-out;
+
+		&:hover {
+			transform: scale(0.97, 0.97);
+			cursor: pointer;
+		}
+
+		&:active {
+			transform: scale(0.93, 0.93);
+		}
+
+		.add_friend_icon {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
 	.contact {
 		width: auto;
 		height: 70px;
@@ -160,6 +277,10 @@
 			cursor: pointer;
 			background-color: $unitedNationsBlue;
 			transform: translateX(5px);
+		}
+
+		&:active {
+			transform: scale(0.95, 0.95);
 		}
 
 		h2 {
@@ -188,20 +309,6 @@
 	}
 }
 
-@keyframes panel-close {
-	100% {
-		width: 100px;
-	}
-}
-@keyframes panel-open {
-	0% {
-		width: 100px;
-	}
-	100% {
-		width: 500px;
-	}
-}
-
 .left_panel_closed {
 	animation: panel-close 0.5s forwards ease-in-out;
 
@@ -218,6 +325,9 @@
 	p {
 		display: none;
 	}
+	.contacts_list li:first-of-type {
+		justify-content: center;
+	}
 	.contacts_list .contact {
 		h2 {
 			display: block;
@@ -232,8 +342,6 @@
 .left_panel_open {
 	animation: panel-open 0.5s forwards ease-in-out;
 }
-
-//* rightPanel
 
 .right_panel {
 	width: 100%;
@@ -263,15 +371,6 @@
 		justify-content: space-between;
 	}
 
-	@keyframes message-load {
-		from {
-			transform: translateX(300%);
-		}
-		to {
-			transform: translateX(0);
-		}
-	}
-
 	.chat {
 		width: 100%;
 		height: 100%;
@@ -283,9 +382,8 @@
 			display: none;
 		}
 
-		list-style: none;
 		display: flex;
-		flex-direction: column;
+		flex-direction: column-reverse;
 		gap: 10px;
 
 		.message {
@@ -295,19 +393,33 @@
 			padding: 10px;
 			background-color: $unitedNationsBlue;
 			border-radius: 20px;
-			animation: message-load 0.5s ease-in-out forwards;
+		}
+
+		.message_left {
+			background-color: $goldCrayola;
+			//! set animations animation: left-message-load 0.5s ease-in-out forwards;
 		}
 
 		.message_right {
 			align-self: flex-end;
+			//! set animations animation: right-message-load 0.5s ease-in-out forwards;
 		}
 	}
 
-	.message_input {
+	.bottom_input {
 		height: 40px;
 		width: 100%;
 		margin: 10px;
 		margin-top: 0;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.message_input {
+		height: 100%;
+		width: 100%;
 		padding: 10px;
 		background-color: $platinum;
 		border-style: none;
@@ -315,5 +427,132 @@
 		outline: none;
 		caret-color: #767079;
 		color: $eerieBlack;
+	}
+
+	.send_icon {
+		width: 30px;
+		height: 30px;
+		margin-left: 10px;
+		color: $fulvous;
+		transition: transform;
+		transition-duration: 0.3;
+		transition-timing-function: ease-in-out;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:active {
+			transform: scale(0.9, 0.9);
+		}
+	}
+}
+
+.acrylic {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-color: #00000080;
+	backdrop-filter: blur(3px);
+}
+
+.add_friend_popup {
+	animation-name: popup;
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.65, -0.01, 0.43, 1.22);
+	animation-fill-mode: forwards;
+	width: 400px;
+	height: 600px;
+	padding: 20px;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	background-color: $platinum;
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+
+	header {
+		width: 100%;
+		height: 40px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		input {
+			width: 100%;
+			height: 100%;
+			padding: 10px;
+			appearance: none;
+			border: none;
+			outline: none;
+			background-color: #fff;
+			border-radius: 20px;
+			margin-right: 10px;
+		}
+
+		.add_friend_icon {
+			width: 28px;
+			height: 28px;
+
+			transition: transform;
+			transition-duration: 0.3s;
+			transition-timing-function: ease-in-out;
+
+			&:hover {
+				transform: scale(0.97, 0.97);
+				cursor: pointer;
+			}
+
+			&:active {
+				transform: scale(0.9, 0.9);
+			}
+		}
+	}
+
+	.searched_users_list {
+		width: 100%;
+		height: 100%;
+	}
+
+	footer {
+		width: 100%;
+		height: fit-content;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		align-items: center;
+
+		button {
+			width: 80px;
+			height: 40px;
+			appearance: none;
+			background-color: $eerieBlack;
+			border: none;
+			border-radius: 20px;
+			color: $snow;
+			text-align: center;
+
+			transition: transform;
+			transition-duration: 0.3s;
+			transition-timing-function: ease-in-out;
+
+			&:hover {
+				cursor: pointer;
+				transform: scale(0.97, 0.97);
+			}
+
+			&:active {
+				transform: scale(0.93, 0.93);
+			}
+		}
 	}
 }

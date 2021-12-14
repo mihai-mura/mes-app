@@ -1,3 +1,103 @@
+@-webkit-keyframes panel-close {
+  100% {
+    width: 100px;
+  }
+}
+
+@keyframes panel-close {
+  100% {
+    width: 100px;
+  }
+}
+
+@-webkit-keyframes panel-open {
+  0% {
+    width: 100px;
+  }
+  100% {
+    width: 500px;
+  }
+}
+
+@keyframes panel-open {
+  0% {
+    width: 100px;
+  }
+  100% {
+    width: 500px;
+  }
+}
+
+@-webkit-keyframes right-message-load {
+  from {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@keyframes right-message-load {
+  from {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes left-message-load {
+  from {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@keyframes left-message-load {
+  from {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes popup {
+  from {
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+}
+
+@keyframes popup {
+  from {
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+}
+
 .page_main {
   width: 100vw;
   height: 100vh;
@@ -58,6 +158,7 @@
 .left_panel .head h4,
 .left_panel .head p {
   margin-left: 20px;
+  margin-right: 10px;
 }
 
 .left_panel .head div:last-of-type {
@@ -80,6 +181,14 @@
 .left_panel .head .settings_icon {
   width: 25px;
   height: 25px;
+  -webkit-transition: -webkit-transform;
+  transition: -webkit-transform;
+  transition: transform;
+  transition: transform, -webkit-transform;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
   color: #e28413;
 }
 
@@ -87,14 +196,32 @@
   cursor: pointer;
 }
 
+.left_panel .head .settings_icon:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
 .left_panel .head .menu_icon {
   width: 30px;
   height: 30px;
   color: #2568e4;
+  -webkit-transition: -webkit-transform;
+  transition: -webkit-transform;
+  transition: transform;
+  transition: transform, -webkit-transform;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
 }
 
 .left_panel .head .menu_icon:hover {
   cursor: pointer;
+}
+
+.left_panel .head .menu_icon:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
 }
 
 .left_panel .user_settings {
@@ -123,7 +250,9 @@
 
 .left_panel .user_settings li {
   width: 100%;
-  height: 50px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   padding: 10px;
   border-radius: 20px;
   display: -webkit-box;
@@ -136,6 +265,7 @@
       -ms-flex-align: center;
           align-items: center;
   background-color: #f2c792;
+  font-weight: 600;
   color: #25211f;
   -webkit-transition: -webkit-transform;
   transition: -webkit-transform;
@@ -151,6 +281,40 @@
   cursor: pointer;
   -webkit-transform: translateX(5px);
           transform: translateX(5px);
+}
+
+.left_panel .user_settings li:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+.left_panel .user_settings li .profile_img_initials {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #5c8eeb;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.left_panel .user_settings li .profile_img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-image: url("../../images/profileImg.jpg");
+  background-size: contain;
+}
+
+.left_panel .user_settings li .name_icon {
+  width: 20px;
+  height: 20px;
 }
 
 .left_panel .user_settings li .logout_icon {
@@ -180,6 +344,51 @@
 
 .left_panel .contacts_list::-webkit-scrollbar {
   display: none;
+}
+
+.left_panel .add_friend {
+  width: auto;
+  padding: 8px;
+  border-radius: 20px;
+  background-color: #5c8eeb;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: 600;
+  -webkit-transition: -webkit-transform;
+  transition: -webkit-transform;
+  transition: transform;
+  transition: transform, -webkit-transform;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+}
+
+.left_panel .add_friend:hover {
+  -webkit-transform: scale(0.97, 0.97);
+          transform: scale(0.97, 0.97);
+  cursor: pointer;
+}
+
+.left_panel .add_friend:active {
+  -webkit-transform: scale(0.93, 0.93);
+          transform: scale(0.93, 0.93);
+}
+
+.left_panel .add_friend .add_friend_icon {
+  width: 20px;
+  height: 20px;
 }
 
 .left_panel .contact {
@@ -217,6 +426,11 @@
           transform: translateX(5px);
 }
 
+.left_panel .contact:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
 .left_panel .contact h2 {
   display: none;
 }
@@ -243,36 +457,6 @@
   background-color: #2568e4;
 }
 
-@-webkit-keyframes panel-close {
-  100% {
-    width: 100px;
-  }
-}
-
-@keyframes panel-close {
-  100% {
-    width: 100px;
-  }
-}
-
-@-webkit-keyframes panel-open {
-  0% {
-    width: 100px;
-  }
-  100% {
-    width: 500px;
-  }
-}
-
-@keyframes panel-open {
-  0% {
-    width: 100px;
-  }
-  100% {
-    width: 500px;
-  }
-}
-
 .left_panel_closed {
   -webkit-animation: panel-close 0.5s forwards ease-in-out;
           animation: panel-close 0.5s forwards ease-in-out;
@@ -295,6 +479,12 @@
 .left_panel_closed h4,
 .left_panel_closed p {
   display: none;
+}
+
+.left_panel_closed .contacts_list li:first-of-type {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .left_panel_closed .contacts_list .contact {
@@ -360,28 +550,6 @@
           justify-content: space-between;
 }
 
-@-webkit-keyframes message-load {
-  from {
-    -webkit-transform: translateX(300%);
-            transform: translateX(300%);
-  }
-  to {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-}
-
-@keyframes message-load {
-  from {
-    -webkit-transform: translateX(300%);
-            transform: translateX(300%);
-  }
-  to {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-}
-
 .right_panel .chat {
   width: 100%;
   height: 100%;
@@ -389,14 +557,13 @@
   overflow: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
-  list-style: none;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
   gap: 10px;
 }
 
@@ -415,8 +582,10 @@
   padding: 10px;
   background-color: #5c8eeb;
   border-radius: 20px;
-  -webkit-animation: message-load 0.5s ease-in-out forwards;
-          animation: message-load 0.5s ease-in-out forwards;
+}
+
+.right_panel .chat .message_left {
+  background-color: #f2c792;
 }
 
 .right_panel .chat .message_right {
@@ -424,11 +593,29 @@
       align-self: flex-end;
 }
 
-.right_panel .message_input {
+.right_panel .bottom_input {
   height: 40px;
   width: 100%;
   margin: 10px;
   margin-top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.right_panel .message_input {
+  height: 100%;
+  width: 100%;
   padding: 10px;
   background-color: #edebee;
   border-style: none;
@@ -436,5 +623,188 @@
   outline: none;
   caret-color: #767079;
   color: #25211f;
+}
+
+.right_panel .send_icon {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  color: #e28413;
+  -webkit-transition: -webkit-transform;
+  transition: -webkit-transform;
+  transition: transform;
+  transition: transform, -webkit-transform;
+  -webkit-transition-duration: 0.3;
+          transition-duration: 0.3;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+}
+
+.right_panel .send_icon:hover {
+  cursor: pointer;
+}
+
+.right_panel .send_icon:active {
+  -webkit-transform: scale(0.9, 0.9);
+          transform: scale(0.9, 0.9);
+}
+
+.acrylic {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000080;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+}
+
+.add_friend_popup {
+  -webkit-animation-name: popup;
+          animation-name: popup;
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
+  -webkit-animation-timing-function: cubic-bezier(0.65, -0.01, 0.43, 1.22);
+          animation-timing-function: cubic-bezier(0.65, -0.01, 0.43, 1.22);
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  width: 400px;
+  height: 600px;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: #edebee;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.add_friend_popup header {
+  width: 100%;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.add_friend_popup header input {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.add_friend_popup header .add_friend_icon {
+  width: 28px;
+  height: 28px;
+  -webkit-transition: -webkit-transform;
+  transition: -webkit-transform;
+  transition: transform;
+  transition: transform, -webkit-transform;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+}
+
+.add_friend_popup header .add_friend_icon:hover {
+  -webkit-transform: scale(0.97, 0.97);
+          transform: scale(0.97, 0.97);
+  cursor: pointer;
+}
+
+.add_friend_popup header .add_friend_icon:active {
+  -webkit-transform: scale(0.9, 0.9);
+          transform: scale(0.9, 0.9);
+}
+
+.add_friend_popup .searched_users_list {
+  width: 100%;
+  height: 100%;
+}
+
+.add_friend_popup footer {
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.add_friend_popup footer button {
+  width: 80px;
+  height: 40px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #25211f;
+  border: none;
+  border-radius: 20px;
+  color: #fbf5f3;
+  text-align: center;
+  -webkit-transition: -webkit-transform;
+  transition: -webkit-transform;
+  transition: transform;
+  transition: transform, -webkit-transform;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+}
+
+.add_friend_popup footer button:hover {
+  cursor: pointer;
+  -webkit-transform: scale(0.97, 0.97);
+          transform: scale(0.97, 0.97);
+}
+
+.add_friend_popup footer button:active {
+  -webkit-transform: scale(0.93, 0.93);
+          transform: scale(0.93, 0.93);
 }
 /*# sourceMappingURL=main.css.map */

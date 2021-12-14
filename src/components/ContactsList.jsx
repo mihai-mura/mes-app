@@ -1,17 +1,18 @@
-import { useContext, useEffect } from 'react';
-import { ContextFriends, ContextSelectedFriend } from '../AppContext';
+import { useContext } from 'react';
 import Contact from './Contact';
+import { AiOutlineUserAdd } from 'react-icons/ai';
+import { ContextFriends } from '../AppContext';
 
-function ContactsList() {
+function ContactsList(props) {
 	const { friends } = useContext(ContextFriends);
-	const { setSelectedFriend } = useContext(ContextSelectedFriend);
 
-	useEffect(() => {
-		setSelectedFriend(friends[0].email);
-	}, []);
-
+	//* add friend action
 	return (
 		<ul className='contacts_list'>
+			<li className='add_friend' onClick={props.openSearchPopup}>
+				<p>Add Friend</p>
+				<AiOutlineUserAdd className='add_friend_icon' />
+			</li>
 			{friends.map((item) => (
 				<li key={item.email}>
 					<Contact
