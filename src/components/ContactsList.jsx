@@ -6,21 +6,22 @@ import { ContextFriends } from '../AppContext';
 function ContactsList(props) {
 	const { friends } = useContext(ContextFriends);
 
-	//* add friend action
+	//! last message
 	return (
 		<ul className='contacts_list'>
 			<li className='add_friend' onClick={props.openSearchPopup}>
 				<p>Add Friend</p>
 				<AiOutlineUserAdd className='add_friend_icon' />
 			</li>
-			{friends.map((item) => (
-				<li key={item.email}>
+			{friends.map((item, index) => (
+				<li key={index}>
 					<Contact
 						email={item.email}
-						fname={item.fname}
-						lname={item.lname}
-						lastMessage={item.message}
-						lastMessageTime={item.messageTime}
+						fname={item.firstName}
+						lname={item.lastName}
+						lastMessage='Last message...'
+						lastMessageTime='00:00'
+						setMobileShowPanel={props.setMobileShowPanel}
 					/>
 				</li>
 			))}

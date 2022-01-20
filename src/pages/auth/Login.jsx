@@ -1,6 +1,5 @@
 import './auth.css';
 import LoginForm from '../../components/LoginForm';
-import { createHash } from 'crypto';
 import { useContext, useEffect } from 'react';
 import { ContextLoggedUser } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
@@ -10,83 +9,61 @@ function Login() {
 	const navigate = useNavigate();
 
 	//check if user details are remembered
-	//! set logged user context based on local
-	useEffect(() => {
-		if (sessionStorage.getItem('loggedUser')) {
-			setLoggedUser(
-				{
-					email: sessionStorage.getItem('loggedUser'),
-					fname: localStorage.getItem(`${sessionStorage.getItem('loggedUser')}-fname`),
-					lname: localStorage.getItem(`${sessionStorage.getItem('loggedUser')}-lname`),
-				},
-				navigate('/mes')
-			);
-		} else if (localStorage.getItem('loggedUser')) {
-			setLoggedUser(
-				{
-					email: localStorage.getItem('loggedUser'),
-					fname: localStorage.getItem(`${localStorage.getItem('loggedUser')}-fname`),
-					lname: localStorage.getItem(`${localStorage.getItem('loggedUser')}-lname`),
-				},
-				navigate('/mes')
-			);
-		}
+	useEffect(async () => {
+		await setUserContextAndRedirect();
 	}, []);
-	//!
 
-	const loginDetails = {
-		email: null,
-		passwd: null,
-		rememberDetails: false,
-	};
-	function handleLogin(email, passwd, rememberDetails) {
-		loginDetails.email = email;
-		loginDetails.passwd = passwd;
-		loginDetails.rememberDetails = rememberDetails;
-
-		loginDetails.passwd = hash(loginDetails.passwd);
-
-		if (searchUser()) {
-			if (verifyPass()) {
-				//* remember details
-				//! set user from local
-				if (loginDetails.rememberDetails) {
-					localStorage.setItem('loggedUser', loginDetails.email);
-				} else {
-					sessionStorage.setItem('loggedUser', loginDetails.email);
-				}
-				setLoggedUser({
-					email: localStorage.getItem(`${loginDetails.email}-email`),
-					fname: localStorage.getItem(`${loginDetails.email}-fname`),
-					lname: localStorage.getItem(`${loginDetails.email}-lname`),
-				});
-				//!
-				navigate('/mes');
+	async function handleLogin(email, passwd, rememberDetails) {
+		const res = await fetch(`${process.env.REACT_APP_API_URI}/users/login`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email: email,
+				password: passwd,
+			}),
+		});
+		if (res.status === 200) {
+			const token = await res.text();
+			if (rememberDetails) {
+				localStorage.setItem('user-token', token);
 			} else {
-				alert('Passwords do not match!');
+				sessionStorage.setItem('user-token', token);
 			}
-		} else {
-			alert('User does not exist!');
+			setUserContextAndRedirect();
+		} else if (res.status === 404) {
+			alert('Email does not exist!');
+		} else if (res.status === 403) {
+			alert('Incorect password!');
 		}
 	}
 
-	//! verify account local
+	//*context and redirect
+	const setUserContextAndRedirect = async () => {
+		if (sessionStorage.getItem('user-token') || localStorage.getItem('user-token')) {
+			//get user data with token
+			const res = await fetch(`${process.env.REACT_APP_API_URI}/users`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${sessionStorage.getItem('user-token') || localStorage.getItem('user-token')}`,
+				},
+			});
 
-	function verifyPass() {
-		if (loginDetails.passwd === localStorage.getItem(`${loginDetails.email}-passwd`)) return true;
-		else return false;
-	}
-
-	function searchUser() {
-		if (localStorage.getItem(`${loginDetails.email}-email`) === loginDetails.email) return true;
-		else return false;
-	}
-
-	//!
-
-	function hash(input) {
-		return createHash('sha256').update(input).digest('hex');
-	}
+			if (res.status === 200) {
+				const user = await res.json();
+				await setLoggedUser({
+					id: user._id,
+					email: user.email,
+					fname: user.fname,
+					lname: user.lname,
+					friends: user.friends,
+					darkTheme: user.darkTheme,
+				});
+				navigate('/mes');
+			}
+		}
+	};
 
 	return (
 		<div className='page_login'>

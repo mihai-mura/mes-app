@@ -6,6 +6,9 @@ export function LoggedUser(props) {
 		fname: null,
 		lname: null,
 		email: null,
+		id: null,
+		darkTheme: null,
+		friends: [],
 	});
 
 	return <ContextLoggedUser.Provider value={{ loggedUser, setLoggedUser }}>{props.children}</ContextLoggedUser.Provider>;
@@ -13,78 +16,7 @@ export function LoggedUser(props) {
 
 export const ContextFriends = createContext(null);
 export function Friends(props) {
-	const [friends, setFriends] = useState([
-		{
-			email: 'mihai@email.com',
-			fname: 'Mwewghwai',
-			lname: 'Mura',
-			message: 'Last message...',
-			messageTime: '19:21',
-		},
-		{
-			email: 'darius@email.com',
-			fname: 'Darius',
-			lname: 'Tente',
-			message: 'Last message...',
-			messageTime: '14:56',
-		},
-		{
-			email: 'andrei@email.com',
-			fname: 'Andrei',
-			lname: 'Iacob',
-			message: 'Last message...',
-			messageTime: '14:56',
-		},
-		{
-			email: 'iooo@email.com',
-			fname: 'IOOO',
-			lname: 'eooooo',
-			message: 'Last message...',
-			messageTime: '14:56',
-		},
-		{
-			email: 'dorel@email.com',
-			fname: 'Dorel',
-			lname: 'MareDorel',
-			message: 'Last message...',
-			messageTime: '14:56',
-		},
-		{
-			email: 'lorem@email.com',
-			fname: 'Lorem',
-			lname: 'Ipsum',
-			message: 'Last message...',
-			messageTime: '00:00',
-		},
-		{
-			email: 'eheh@email.com',
-			fname: 'Eheh',
-			lname: 'Amooo',
-			message: 'Last message...',
-			messageTime: '00:00',
-		},
-		{
-			email: 'lorus@email.com',
-			fname: 'Lorus',
-			lname: 'Ioioio',
-			message: 'Last message...',
-			messageTime: '00:00',
-		},
-		{
-			email: 'boss@email.com',
-			fname: 'Boss',
-			lname: 'Mmmmm',
-			message: 'Last message...',
-			messageTime: '00:00',
-		},
-		{
-			email: 'doru@email.com',
-			fname: 'Doru',
-			lname: 'Dragan',
-			message: 'Last message...',
-			messageTime: '00:00',
-		},
-	]);
+	const [friends, setFriends] = useState([]);
 
 	return <ContextFriends.Provider value={{ friends, setFriends }}>{props.children}</ContextFriends.Provider>;
 }
@@ -105,4 +37,11 @@ export function Messages(props) {
 	const [messages, setMessages] = useState([]);
 
 	return <ContextMessages.Provider value={{ messages, setMessages }}>{props.children}</ContextMessages.Provider>;
+}
+
+export const ContextDarkTheme = createContext(null);
+export function DarkTheme(props) {
+	const [darkTheme, setDarkTheme] = useState(false);
+
+	return <ContextDarkTheme.Provider value={{ darkTheme, setDarkTheme }}>{props.children}</ContextDarkTheme.Provider>;
 }

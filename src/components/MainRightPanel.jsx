@@ -6,7 +6,7 @@ import ChatTitle from './ChatTitle';
 import Message from './Message';
 import { BiSend } from 'react-icons/bi';
 
-function MainRightPannel() {
+function MainRightPannel(props) {
 	const { selectedFriend } = useContext(ContextSelectedFriend);
 	const [inputMessage, setInputMessage] = useState('');
 
@@ -42,7 +42,7 @@ function MainRightPannel() {
 		setInputMessage(event.target.value);
 	}
 
-	//* message transition corection
+	//! message transition corection
 	//! message send
 	function sendMessage() {
 		if (inputMessage !== '') {
@@ -51,9 +51,11 @@ function MainRightPannel() {
 		}
 	}
 
+	const panelClass = `right_panel ${props.mobileShowPanel ? 'mobile_show' : 'mobile_no_show'}`;
+
 	return (
-		<div className='right_panel'>
-			<ChatTitle fname={selectedFriend.fname} lname={selectedFriend.lname} />
+		<div className={panelClass}>
+			<ChatTitle fname={selectedFriend.fname} lname={selectedFriend.lname} mobileMenuClick={props.mobileMenuClick} />
 			<Chat messages={messages} />
 			<div className='bottom_input'>
 				<input
@@ -64,6 +66,7 @@ function MainRightPannel() {
 					placeholder='Message'
 					onChange={inputOnChange}
 					value={inputMessage}
+					autoFocus
 				/>
 				<BiSend className='send_icon' onClick={sendMessage} />
 			</div>

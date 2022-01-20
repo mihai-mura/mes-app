@@ -1,5 +1,54 @@
 @import '../../style/colors';
 
+//themes
+body {
+	--page-background: white;
+	--card-background: #{$periwinkleCrayola};
+	--selected-card: #{$bluetiful};
+	--add-friend-card: #{$unitedNationsBlue};
+	--card-hover: #{$unitedNationsBlue};
+	--text: #{$eerieBlack};
+	--menu-icon: #{$eerieBlack};
+	--settings-icon: #{$bluetiful};
+	--settings: #{$bluetiful};
+	--my-messages: #{$unitedNationsBlue};
+	--my-message-text: #{$eerieBlack};
+	--friend-message: #e4e6eb;
+	--friend-message-text: #{$eerieBlack};
+	--input: #{$platinum};
+	--input-text: #{$eerieBlack};
+	--input-placeholder: #a9a9a9;
+	--send-icon: #{$bluetiful};
+	--popout-background: white;
+	--popout-accent: #{$bluetiful};
+	--change-name-popout-button: #{$eerieBlack};
+	--change-name-popup-button-text: #{$platinum};
+}
+
+body.dark {
+	--page-background: #{$eerieBlack};
+	--card-background: rgb(52, 53, 61);
+	--selected-card: #{$rustyRed};
+	--add-friend-card: #242323;
+	--card-hover: #242323;
+	--text: #{$platinum};
+	--settings: #{$rustyRed};
+	--menu-icon: #{$platinum};
+	--settings-icon: #{$rustyRed};
+	--my-messages: #{$rustyRed};
+	--my-message-text: #{$platinum};
+	--friend-message: rgb(75, 75, 75);
+	--friend-message-text: #{$platinum};
+	--input: rgb(75, 75, 75);
+	--input-text: #{$platinum};
+	--input-placeholder: #cacaca;
+	--send-icon: #{$rustyRed};
+	--popout-background: #{$eerieBlack};
+	--popout-accent: #{$rustyRed};
+	--change-name-popout-button: rgb(52, 53, 61);
+	--change-name-popup-button-text: #{$platinum};
+}
+
 @keyframes panel-close {
 	100% {
 		width: 100px;
@@ -48,10 +97,16 @@
 	height: 100vh;
 	display: flex;
 	flex-direction: row;
+	background-color: var(--page-background);
 
 	* {
 		font-family: 'Outfit', sans-serif;
 		font-size: medium;
+
+		//theme change transition
+		transition-property: background-color, color;
+		transition-timing-function: ease-in-out;
+		transition-duration: 0.3s;
 	}
 }
 
@@ -70,8 +125,8 @@
 		margin: 10px;
 		padding: 10px;
 
-		background-color: $periwinkleCrayola;
-		color: $eerieBlack;
+		background-color: var(--card-background);
+		color: var(--text);
 		border-radius: 20px;
 
 		display: flex;
@@ -81,11 +136,12 @@
 
 		h4,
 		p {
-			margin-left: 20px;
+			margin-left: 10px;
 			margin-right: 10px;
 		}
 
 		div:last-of-type {
+			margin-left: auto;
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
@@ -101,7 +157,7 @@
 			transition-duration: 0.3s;
 			transition-timing-function: ease-in-out;
 
-			color: $fulvous;
+			color: var(--settings-icon);
 
 			&:hover {
 				cursor: pointer;
@@ -115,7 +171,7 @@
 			width: 30px;
 			height: 30px;
 
-			color: $bluetiful;
+			color: var(--menu-icon);
 
 			transition: transform;
 			transition-duration: 0.3s;
@@ -131,6 +187,7 @@
 		}
 	}
 
+	//* settings panel animation
 	.user_settings {
 		height: 100%;
 		margin: 10px;
@@ -142,7 +199,7 @@
 			display: none;
 		}
 
-		background-color: $antiqueWhite;
+		background-color: var(--card-background);
 		border-radius: 20px;
 
 		list-style: none;
@@ -159,10 +216,10 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			background-color: $goldCrayola;
+			background-color: var(--settings);
 			font-weight: 600;
 
-			color: $eerieBlack;
+			color: var(--text);
 
 			transition: transform;
 			transition-duration: 0.3s;
@@ -177,33 +234,68 @@
 				transform: scale(0.95, 0.95);
 			}
 
-			.profile_img_initials {
-				width: 35px;
-				height: 35px;
-				border-radius: 50%;
-				background-color: $unitedNationsBlue;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-
-			.profile_img {
-				width: 35px;
-				height: 35px;
-				border-radius: 50%;
-				background-image: url('../../images/profileImg.jpg');
-				background-size: contain;
-			}
-
 			.name_icon {
 				width: 20px;
 				height: 20px;
+			}
+
+			label {
+				width: 100%;
+				height: 100%;
+				padding: 10px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+
+				&:hover {
+					cursor: pointer;
+				}
+
+				input {
+					display: none;
+
+					&:checked + .theme_toggle {
+						background-color: $eerieBlack;
+
+						&::after {
+							transform: translateX(15px);
+							background-color: $platinum;
+						}
+					}
+				}
+
+				.theme_toggle {
+					width: 35px;
+					height: 20px;
+					background-color: $platinum;
+					border-radius: 10px;
+					position: relative;
+
+					&::after {
+						content: '';
+						width: 10px;
+						height: 10px;
+						background-color: $eerieBlack;
+						border-radius: 50%;
+						position: absolute;
+						left: 5px;
+						top: 5px;
+						transition-property: transform, background-color;
+						transition-duration: 0.3s;
+						transition-timing-function: ease-in-out;
+					}
+				}
 			}
 
 			.logout_icon {
 				width: 20px;
 				height: 20px;
 			}
+		}
+
+		.theme_li {
+			padding: 0;
 		}
 	}
 
@@ -218,7 +310,7 @@
 			display: none;
 		}
 
-		background-color: $periwinkleCrayola;
+		background-color: var(--card-background);
 		border-radius: 20px;
 
 		list-style: none;
@@ -232,12 +324,15 @@
 		width: auto;
 		padding: 8px;
 		border-radius: 20px;
-		background-color: $unitedNationsBlue;
+		background-color: var(--add-friend-card);
+		color: var(--text);
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
 		font-weight: 600;
+
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 
 		transition: transform;
 		transition-duration: 0.3s;
@@ -264,6 +359,8 @@
 		padding: 10px;
 		border-radius: 20px;
 
+		color: var(--text);
+
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -275,8 +372,10 @@
 
 		&:hover {
 			cursor: pointer;
-			background-color: $unitedNationsBlue;
+			background-color: var(--card-hover);
 			transform: translateX(5px);
+
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 		}
 
 		&:active {
@@ -298,13 +397,17 @@
 		p {
 			align-self: flex-start;
 			margin-top: 10px;
+			margin-left: auto;
 		}
 	}
 
 	.contact_selected {
-		background-color: $bluetiful;
+		background-color: var(--selected-card);
+
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
 		&:hover {
-			background-color: $bluetiful;
+			background-color: var(--selected-card);
 		}
 	}
 }
@@ -361,20 +464,26 @@
 		padding-left: 20px;
 		margin-bottom: 0;
 
-		background-color: $periwinkleCrayola;
-		color: $eerieBlack;
+		background-color: var(--card-background);
+		color: var(--text);
 		border-radius: 20px;
 
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-start;
+		gap: 10px;
+
+		.mobile_menu {
+			display: none;
+		}
 	}
 
 	.chat {
 		width: 100%;
 		height: 100%;
 		margin-bottom: 5px;
+		padding: 5px;
 		overflow: hidden;
 		overflow-y: scroll;
 		scroll-behavior: smooth;
@@ -391,17 +500,28 @@
 			max-width: 50%;
 			height: fit-content;
 			padding: 10px;
-			background-color: $unitedNationsBlue;
+
 			border-radius: 20px;
+
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+			//* fix string overflow
+
+			p {
+				overflow-wrap: break-word;
+			}
 		}
 
 		.message_left {
-			background-color: $goldCrayola;
+			background-color: var(--friend-message);
+			color: var(--friend-message-text);
 			//! set animations animation: left-message-load 0.5s ease-in-out forwards;
 		}
 
 		.message_right {
 			align-self: flex-end;
+			background-color: var(--my-messages);
+			color: var(--my-message-text);
 			//! set animations animation: right-message-load 0.5s ease-in-out forwards;
 		}
 	}
@@ -421,29 +541,33 @@
 		height: 100%;
 		width: 100%;
 		padding: 10px;
-		background-color: $platinum;
+		background-color: var(--input);
 		border-style: none;
 		border-radius: 20px;
 		outline: none;
 		caret-color: #767079;
-		color: $eerieBlack;
+		color: var(--input-text);
+		&::placeholder {
+			color: var(--input-placeholder);
+		}
 	}
 
 	.send_icon {
 		width: 30px;
 		height: 30px;
 		margin-left: 10px;
-		color: $fulvous;
+		color: var(--send-icon);
 		transition: transform;
-		transition-duration: 0.3;
+		transition-duration: 0.3s;
 		transition-timing-function: ease-in-out;
 
 		&:hover {
 			cursor: pointer;
+			transform: scale(0.97, 0.97);
 		}
 
 		&:active {
-			transform: scale(0.9, 0.9);
+			transform: scale(0.93, 0.93);
 		}
 	}
 }
@@ -470,7 +594,7 @@
 	top: 0;
 	bottom: 0;
 	margin: auto;
-	background-color: $platinum;
+	background-color: var(--popout-background);
 	border-radius: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
@@ -487,9 +611,14 @@
 		appearance: none;
 		border: none;
 		outline: none;
-		background-color: #fff;
+		background-color: var(--input);
+		color: var(--input-text);
 		border-radius: 20px;
 		margin-right: 10px;
+
+		&::placeholder {
+			color: var(--input-placeholder);
+		}
 	}
 
 	footer {
@@ -506,10 +635,10 @@
 		width: 80px;
 		height: 40px;
 		appearance: none;
-		background-color: $eerieBlack;
+		background-color: var(--change-name-popout-button);
 		border: none;
 		border-radius: 20px;
-		color: $snow;
+		color: var(--change-name-popup-button-text);
 		text-align: center;
 		align-self: flex-end;
 
@@ -528,7 +657,7 @@
 	}
 
 	button:last-of-type {
-		background-color: $fulvous;
+		background-color: var(--popout-accent);
 	}
 }
 
@@ -546,7 +675,7 @@
 	top: 0;
 	bottom: 0;
 	margin: auto;
-	background-color: $platinum;
+	background-color: var(--popout-background);
 	border-radius: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
@@ -555,48 +684,70 @@
 	justify-content: space-between;
 	align-items: center;
 
-	header {
+	input {
 		width: 100%;
 		height: 40px;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
+		padding: 10px;
+		margin-bottom: 10px;
+		appearance: none;
+		border: none;
+		outline: none;
+		background-color: var(--input);
+		border-radius: 20px;
+		color: var(--input-text);
 
-		input {
-			width: 100%;
-			height: 100%;
-			padding: 10px;
-			appearance: none;
-			border: none;
-			outline: none;
-			background-color: #fff;
-			border-radius: 20px;
-			margin-right: 10px;
-		}
-
-		.add_friend_icon {
-			width: 28px;
-			height: 28px;
-
-			transition: transform;
-			transition-duration: 0.3s;
-			transition-timing-function: ease-in-out;
-
-			&:hover {
-				transform: scale(0.97, 0.97);
-				cursor: pointer;
-			}
-
-			&:active {
-				transform: scale(0.9, 0.9);
-			}
+		&::placeholder {
+			color: var(--input-placeholder);
 		}
 	}
 
 	.searched_users_list {
 		width: 100%;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		overflow: hidden;
+		overflow-y: scroll;
+		scroll-behavior: smooth;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		.newfriend {
+			width: 100%;
+			height: 50px;
+			padding: 15px;
+			background-color: var(--card-background);
+			border-radius: 20px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			gap: 10px;
+
+			transition: transform;
+			transition-duration: 0.3s;
+			transition-timing-function: ease-in-out;
+
+			color: #fff;
+
+			//add icon
+			& > *:last-child {
+				width: 22px;
+				height: 22px;
+				margin-left: auto;
+			}
+
+			&:hover {
+				cursor: pointer;
+				transform: scale(0.98, 0.98);
+			}
+
+			&:active {
+				transform: scale(0.95, 0.95);
+			}
+		}
 	}
 
 	footer {
@@ -611,10 +762,10 @@
 			width: 80px;
 			height: 40px;
 			appearance: none;
-			background-color: $eerieBlack;
+			background-color: var(--popout-accent);
 			border: none;
 			border-radius: 20px;
-			color: $snow;
+			color: $platinum;
 			text-align: center;
 
 			transition: transform;
@@ -630,5 +781,64 @@
 				transform: scale(0.93, 0.93);
 			}
 		}
+	}
+}
+
+//reused classes
+.profile_pic {
+	width: 35px;
+	height: 35px;
+	background-color: green;
+	border-radius: 50%;
+}
+
+@media screen and (max-width: 800px) {
+	.left_panel {
+		display: none;
+
+		.head .menu_icon {
+			display: none;
+		}
+	}
+
+	.right_panel {
+		margin-left: 10px;
+
+		.chat_title .mobile_menu {
+			display: block;
+			width: 30px;
+			height: 30px;
+
+			color: var(--menu-icon);
+
+			transition: transform;
+			transition-duration: 0.3s;
+			transition-timing-function: ease-in-out;
+
+			&:hover {
+				cursor: pointer;
+			}
+
+			&:active {
+				transform: scale(0.95, 0.95);
+			}
+		}
+	}
+
+	.mobile_show {
+		display: flex;
+	}
+
+	.mobile_no_show {
+		display: none;
+	}
+
+	.add_friend_popup {
+		width: 80%;
+		height: 70%;
+	}
+
+	.change_name {
+		width: 80%;
 	}
 }

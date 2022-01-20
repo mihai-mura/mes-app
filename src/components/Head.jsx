@@ -1,8 +1,10 @@
 import { FiMenu, FiSettings } from 'react-icons/fi';
 
+//! profile pic
 function Head(props) {
 	return (
 		<div className='head'>
+			<img className='profile_pic' />
 			<div>
 				<h4>{props.name}</h4>
 				<p>{props.email}</p>

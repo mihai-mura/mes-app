@@ -28,10 +28,15 @@ function Contact(props) {
 			fname: friendDetails.fname,
 			lname: friendDetails.lname,
 		});
+
+		//hide panel on click on mobile
+		if (window.innerWidth < 800) props.setMobileShowPanel(false);
 	}
 
+	//!profile pic
 	return (
 		<div className={selectedFriend.email === friendDetails.email ? 'contact contact_selected' : 'contact'} onClick={onContactClick}>
+			<img className='profile_pic' />
 			<h2>
 				{props.fname.charAt(0)}
 				{props.lname.charAt(0)}

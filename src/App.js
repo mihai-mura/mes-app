@@ -3,7 +3,7 @@ import Start from './pages/start/Start';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Main from './pages/interface/Main';
-import { LoggedUser, Friends, SelectedFriend, Messages } from './AppContext';
+import { LoggedUser, Friends, SelectedFriend, Messages, DarkTheme } from './AppContext';
 
 function App() {
 	return (
@@ -17,13 +17,15 @@ function App() {
 						exact
 						path='/mes'
 						element={
-							<Friends>
-								<SelectedFriend>
-									<Messages>
-										<Main />
-									</Messages>
-								</SelectedFriend>
-							</Friends>
+							<DarkTheme>
+								<Friends>
+									<SelectedFriend>
+										<Messages>
+											<Main />
+										</Messages>
+									</SelectedFriend>
+								</Friends>
+							</DarkTheme>
 						}
 					/>
 				</Routes>

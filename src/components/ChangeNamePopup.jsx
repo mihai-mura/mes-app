@@ -27,18 +27,31 @@ function ChangeNamePopup(props) {
 		setLnameForChange(event.target.value);
 	}
 
-	function changeName() {
-		//*add alerts for incomplete inputs
+	async function changeName() {
 		if (fnameForChange && lnameForChange) {
-			//! change user name local
-			localStorage.setItem(`${loggedUser.email}-fname`, fnameForChange);
-			localStorage.setItem(`${loggedUser.email}-lname`, lnameForChange);
+			await fetch(`${process.env.REACT_APP_API_URI}/users/name`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem('user-token') || sessionStorage.getItem('user-token')}`,
+				},
+				body: JSON.stringify({
+					fname: fnameForChange,
+					lname: lnameForChange,
+				}),
+			});
+
 			setLoggedUser({
+				id: loggedUser._id,
+				email: loggedUser.email,
 				fname: fnameForChange,
 				lname: lnameForChange,
-				email: loggedUser.email,
+				friends: loggedUser.friends,
+				darkTheme: loggedUser.darkTheme,
 			});
 			props.toggle();
+		} else {
+			alert('Enter both fields!');
 		}
 	}
 

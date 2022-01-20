@@ -46,7 +46,7 @@
           box-shadow: none;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   text-align: center;
-  color: #fbf5f3;
+  color: #edebee;
   font-family: 'Outfit', sans-serif;
 }
 
@@ -61,7 +61,7 @@
   background-color: rgba(6, 22, 71, 0.6);
   font-family: 'Outfit', sans-serif;
   font-size: 15px;
-  color: #fbf5f3;
+  color: #edebee;
 }
 
 .login_form input::-webkit-input-placeholder, .register_form input::-webkit-input-placeholder {
@@ -93,7 +93,7 @@
           box-shadow: none;
   font-family: 'Outfit', sans-serif;
   font-size: 15px;
-  color: #fbf5f3;
+  color: #edebee;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
@@ -140,7 +140,7 @@
   border-radius: 25px;
   border: none;
   background-color: rgba(31, 47, 121, 0.635);
-  color: #fbf5f3;
+  color: #edebee;
   font-family: 'Outfit', sans-serif;
   font-size: 18px;
 }
@@ -170,7 +170,7 @@
 
 .auth_link {
   margin-top: 20px;
-  color: #fbf5f3;
+  color: #edebee;
   font-family: 'Outfit', sans-serif;
   text-decoration: none;
   -webkit-box-shadow: none;

@@ -1,3 +1,51 @@
+body {
+  --page-background: white;
+  --card-background: #ccdaf5;
+  --selected-card: #2568e4;
+  --add-friend-card: #5c8eeb;
+  --card-hover: #5c8eeb;
+  --text: #25211f;
+  --menu-icon: #25211f;
+  --settings-icon: #2568e4;
+  --settings: #2568e4;
+  --my-messages: #5c8eeb;
+  --my-message-text: #25211f;
+  --friend-message: #e4e6eb;
+  --friend-message-text: #25211f;
+  --input: #edebee;
+  --input-text: #25211f;
+  --input-placeholder: #a9a9a9;
+  --send-icon: #2568e4;
+  --popout-background: white;
+  --popout-accent: #2568e4;
+  --change-name-popout-button: #25211f;
+  --change-name-popup-button-text: #edebee;
+}
+
+body.dark {
+  --page-background: #25211f;
+  --card-background: rgb(52, 53, 61);
+  --selected-card: #de3c4b;
+  --add-friend-card: #242323;
+  --card-hover: #242323;
+  --text: #edebee;
+  --settings: #de3c4b;
+  --menu-icon: #edebee;
+  --settings-icon: #de3c4b;
+  --my-messages: #de3c4b;
+  --my-message-text: #edebee;
+  --friend-message: rgb(75, 75, 75);
+  --friend-message-text: #edebee;
+  --input: rgb(75, 75, 75);
+  --input-text: #edebee;
+  --input-placeholder: #cacaca;
+  --send-icon: #de3c4b;
+  --popout-background: #25211f;
+  --popout-accent: #de3c4b;
+  --change-name-popout-button: rgb(52, 53, 61);
+  --change-name-popup-button-text: #edebee;
+}
+
 @-webkit-keyframes panel-close {
   100% {
     width: 100px;
@@ -108,11 +156,18 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  background-color: var(--page-background);
 }
 
 .page_main * {
   font-family: 'Outfit', sans-serif;
   font-size: medium;
+  -webkit-transition-property: background-color, color;
+  transition-property: background-color, color;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
 }
 
 .left_panel {
@@ -137,8 +192,8 @@
   height: 70px;
   margin: 10px;
   padding: 10px;
-  background-color: #ccdaf5;
-  color: #25211f;
+  background-color: var(--card-background);
+  color: var(--text);
   border-radius: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -157,11 +212,12 @@
 
 .left_panel .head h4,
 .left_panel .head p {
-  margin-left: 20px;
+  margin-left: 10px;
   margin-right: 10px;
 }
 
 .left_panel .head div:last-of-type {
+  margin-left: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -189,7 +245,7 @@
           transition-duration: 0.3s;
   -webkit-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
-  color: #e28413;
+  color: var(--settings-icon);
 }
 
 .left_panel .head .settings_icon:hover {
@@ -204,7 +260,7 @@
 .left_panel .head .menu_icon {
   width: 30px;
   height: 30px;
-  color: #2568e4;
+  color: var(--menu-icon);
   -webkit-transition: -webkit-transform;
   transition: -webkit-transform;
   transition: transform;
@@ -231,7 +287,7 @@
   overflow: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
-  background-color: #faebdb;
+  background-color: var(--card-background);
   border-radius: 20px;
   list-style: none;
   display: -webkit-box;
@@ -264,9 +320,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #f2c792;
+  background-color: var(--settings);
   font-weight: 600;
-  color: #25211f;
+  color: var(--text);
   -webkit-transition: -webkit-transform;
   transition: -webkit-transform;
   transition: transform;
@@ -288,38 +344,82 @@
           transform: scale(0.95, 0.95);
 }
 
-.left_panel .user_settings li .profile_img_initials {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #5c8eeb;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.left_panel .user_settings li .profile_img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-image: url("../../images/profileImg.jpg");
-  background-size: contain;
-}
-
 .left_panel .user_settings li .name_icon {
   width: 20px;
   height: 20px;
 }
 
+.left_panel .user_settings li label {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.left_panel .user_settings li label:hover {
+  cursor: pointer;
+}
+
+.left_panel .user_settings li label input {
+  display: none;
+}
+
+.left_panel .user_settings li label input:checked + .theme_toggle {
+  background-color: #25211f;
+}
+
+.left_panel .user_settings li label input:checked + .theme_toggle::after {
+  -webkit-transform: translateX(15px);
+          transform: translateX(15px);
+  background-color: #edebee;
+}
+
+.left_panel .user_settings li label .theme_toggle {
+  width: 35px;
+  height: 20px;
+  background-color: #edebee;
+  border-radius: 10px;
+  position: relative;
+}
+
+.left_panel .user_settings li label .theme_toggle::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-color: #25211f;
+  border-radius: 50%;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  -webkit-transition-property: background-color, -webkit-transform;
+  transition-property: background-color, -webkit-transform;
+  transition-property: transform, background-color;
+  transition-property: transform, background-color, -webkit-transform;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+}
+
 .left_panel .user_settings li .logout_icon {
   width: 20px;
   height: 20px;
+}
+
+.left_panel .user_settings .theme_li {
+  padding: 0;
 }
 
 .left_panel .contacts_list {
@@ -329,7 +429,7 @@
   overflow: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
-  background-color: #ccdaf5;
+  background-color: var(--card-background);
   border-radius: 20px;
   list-style: none;
   display: -webkit-box;
@@ -350,7 +450,8 @@
   width: auto;
   padding: 8px;
   border-radius: 20px;
-  background-color: #5c8eeb;
+  background-color: var(--add-friend-card);
+  color: var(--text);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -365,6 +466,8 @@
       -ms-flex-align: center;
           align-items: center;
   font-weight: 600;
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   -webkit-transition: -webkit-transform;
   transition: -webkit-transform;
   transition: transform;
@@ -396,6 +499,7 @@
   height: 70px;
   padding: 10px;
   border-radius: 20px;
+  color: var(--text);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -421,9 +525,11 @@
 
 .left_panel .contact:hover {
   cursor: pointer;
-  background-color: #5c8eeb;
+  background-color: var(--card-hover);
   -webkit-transform: translateX(5px);
           transform: translateX(5px);
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .left_panel .contact:active {
@@ -447,14 +553,17 @@
   -ms-flex-item-align: start;
       align-self: flex-start;
   margin-top: 10px;
+  margin-left: auto;
 }
 
 .left_panel .contact_selected {
-  background-color: #2568e4;
+  background-color: var(--selected-card);
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .left_panel .contact_selected:hover {
-  background-color: #2568e4;
+  background-color: var(--selected-card);
 }
 
 .left_panel_closed {
@@ -532,8 +641,8 @@
   padding: 10px;
   padding-left: 20px;
   margin-bottom: 0;
-  background-color: #ccdaf5;
-  color: #25211f;
+  background-color: var(--card-background);
+  color: var(--text);
   border-radius: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -545,15 +654,21 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  gap: 10px;
+}
+
+.right_panel .chat_title .mobile_menu {
+  display: none;
 }
 
 .right_panel .chat {
   width: 100%;
   height: 100%;
   margin-bottom: 5px;
+  padding: 5px;
   overflow: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
@@ -580,17 +695,25 @@
   height: -moz-fit-content;
   height: fit-content;
   padding: 10px;
-  background-color: #5c8eeb;
   border-radius: 20px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.right_panel .chat .message p {
+  overflow-wrap: break-word;
 }
 
 .right_panel .chat .message_left {
-  background-color: #f2c792;
+  background-color: var(--friend-message);
+  color: var(--friend-message-text);
 }
 
 .right_panel .chat .message_right {
   -ms-flex-item-align: end;
       align-self: flex-end;
+  background-color: var(--my-messages);
+  color: var(--my-message-text);
 }
 
 .right_panel .bottom_input {
@@ -617,36 +740,54 @@
   height: 100%;
   width: 100%;
   padding: 10px;
-  background-color: #edebee;
+  background-color: var(--input);
   border-style: none;
   border-radius: 20px;
   outline: none;
   caret-color: #767079;
-  color: #25211f;
+  color: var(--input-text);
+}
+
+.right_panel .message_input::-webkit-input-placeholder {
+  color: var(--input-placeholder);
+}
+
+.right_panel .message_input:-ms-input-placeholder {
+  color: var(--input-placeholder);
+}
+
+.right_panel .message_input::-ms-input-placeholder {
+  color: var(--input-placeholder);
+}
+
+.right_panel .message_input::placeholder {
+  color: var(--input-placeholder);
 }
 
 .right_panel .send_icon {
   width: 30px;
   height: 30px;
   margin-left: 10px;
-  color: #e28413;
+  color: var(--send-icon);
   -webkit-transition: -webkit-transform;
   transition: -webkit-transform;
   transition: transform;
   transition: transform, -webkit-transform;
-  -webkit-transition-duration: 0.3;
-          transition-duration: 0.3;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
   -webkit-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
 }
 
 .right_panel .send_icon:hover {
   cursor: pointer;
+  -webkit-transform: scale(0.97, 0.97);
+          transform: scale(0.97, 0.97);
 }
 
 .right_panel .send_icon:active {
-  -webkit-transform: scale(0.9, 0.9);
-          transform: scale(0.9, 0.9);
+  -webkit-transform: scale(0.93, 0.93);
+          transform: scale(0.93, 0.93);
 }
 
 .acrylic {
@@ -678,7 +819,7 @@
   top: 0;
   bottom: 0;
   margin: auto;
-  background-color: #edebee;
+  background-color: var(--popout-background);
   border-radius: 20px;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -707,9 +848,26 @@
           appearance: none;
   border: none;
   outline: none;
-  background-color: #fff;
+  background-color: var(--input);
+  color: var(--input-text);
   border-radius: 20px;
   margin-right: 10px;
+}
+
+.change_name input::-webkit-input-placeholder {
+  color: var(--input-placeholder);
+}
+
+.change_name input:-ms-input-placeholder {
+  color: var(--input-placeholder);
+}
+
+.change_name input::-ms-input-placeholder {
+  color: var(--input-placeholder);
+}
+
+.change_name input::placeholder {
+  color: var(--input-placeholder);
 }
 
 .change_name footer {
@@ -739,10 +897,10 @@
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background-color: #25211f;
+  background-color: var(--change-name-popout-button);
   border: none;
   border-radius: 20px;
-  color: #fbf5f3;
+  color: var(--change-name-popup-button-text);
   text-align: center;
   -ms-flex-item-align: end;
       align-self: flex-end;
@@ -768,7 +926,7 @@
 }
 
 .change_name button:last-of-type {
-  background-color: #e28413;
+  background-color: var(--popout-accent);
 }
 
 .add_friend_popup {
@@ -789,7 +947,7 @@
   top: 0;
   bottom: 0;
   margin: auto;
-  background-color: #edebee;
+  background-color: var(--popout-background);
   border-radius: 20px;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -808,9 +966,63 @@
           align-items: center;
 }
 
-.add_friend_popup header {
+.add_friend_popup input {
   width: 100%;
   height: 40px;
+  padding: 10px;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  outline: none;
+  background-color: var(--input);
+  border-radius: 20px;
+  color: var(--input-text);
+}
+
+.add_friend_popup input::-webkit-input-placeholder {
+  color: var(--input-placeholder);
+}
+
+.add_friend_popup input:-ms-input-placeholder {
+  color: var(--input-placeholder);
+}
+
+.add_friend_popup input::-ms-input-placeholder {
+  color: var(--input-placeholder);
+}
+
+.add_friend_popup input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.add_friend_popup .searched_users_list {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.add_friend_popup .searched_users_list::-webkit-scrollbar {
+  display: none;
+}
+
+.add_friend_popup .searched_users_list .newfriend {
+  width: 100%;
+  height: 50px;
+  padding: 15px;
+  background-color: var(--card-background);
+  border-radius: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -824,25 +1036,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.add_friend_popup header input {
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  border: none;
-  outline: none;
-  background-color: #fff;
-  border-radius: 20px;
-  margin-right: 10px;
-}
-
-.add_friend_popup header .add_friend_icon {
-  width: 28px;
-  height: 28px;
+  gap: 10px;
   -webkit-transition: -webkit-transform;
   transition: -webkit-transform;
   transition: transform;
@@ -851,22 +1045,24 @@
           transition-duration: 0.3s;
   -webkit-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
+  color: #fff;
 }
 
-.add_friend_popup header .add_friend_icon:hover {
-  -webkit-transform: scale(0.97, 0.97);
-          transform: scale(0.97, 0.97);
+.add_friend_popup .searched_users_list .newfriend > *:last-child {
+  width: 22px;
+  height: 22px;
+  margin-left: auto;
+}
+
+.add_friend_popup .searched_users_list .newfriend:hover {
   cursor: pointer;
+  -webkit-transform: scale(0.98, 0.98);
+          transform: scale(0.98, 0.98);
 }
 
-.add_friend_popup header .add_friend_icon:active {
-  -webkit-transform: scale(0.9, 0.9);
-          transform: scale(0.9, 0.9);
-}
-
-.add_friend_popup .searched_users_list {
-  width: 100%;
-  height: 100%;
+.add_friend_popup .searched_users_list .newfriend:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
 }
 
 .add_friend_popup footer {
@@ -895,10 +1091,10 @@
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background-color: #25211f;
+  background-color: var(--popout-accent);
   border: none;
   border-radius: 20px;
-  color: #fbf5f3;
+  color: #edebee;
   text-align: center;
   -webkit-transition: -webkit-transform;
   transition: -webkit-transform;
@@ -919,5 +1115,60 @@
 .add_friend_popup footer button:active {
   -webkit-transform: scale(0.93, 0.93);
           transform: scale(0.93, 0.93);
+}
+
+.profile_pic {
+  width: 35px;
+  height: 35px;
+  background-color: green;
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 800px) {
+  .left_panel {
+    display: none;
+  }
+  .left_panel .head .menu_icon {
+    display: none;
+  }
+  .right_panel {
+    margin-left: 10px;
+  }
+  .right_panel .chat_title .mobile_menu {
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: var(--menu-icon);
+    -webkit-transition: -webkit-transform;
+    transition: -webkit-transform;
+    transition: transform;
+    transition: transform, -webkit-transform;
+    -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+  }
+  .right_panel .chat_title .mobile_menu:hover {
+    cursor: pointer;
+  }
+  .right_panel .chat_title .mobile_menu:active {
+    -webkit-transform: scale(0.95, 0.95);
+            transform: scale(0.95, 0.95);
+  }
+  .mobile_show {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .mobile_no_show {
+    display: none;
+  }
+  .add_friend_popup {
+    width: 80%;
+    height: 70%;
+  }
+  .change_name {
+    width: 80%;
+  }
 }
 /*# sourceMappingURL=main.css.map */
