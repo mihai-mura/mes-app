@@ -110,7 +110,7 @@
   width: 1.25em;
   height: 1.25em;
   border: 2px solid #ccc;
-  border-radius: 3px;
+  border-radius: 50%;
   background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -129,7 +129,7 @@
 }
 
 .login_form .remember_checkbox .checkbox_box::after, .register_form .remember_checkbox .checkbox_box::after {
-  content: '\2714';
+  content: '';
   color: #ebebeb;
 }
 

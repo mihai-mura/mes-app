@@ -122,6 +122,7 @@ body.dark {
 	.head {
 		width: auto;
 		height: 70px;
+		min-height: 70px;
 		margin: 10px;
 		padding: 10px;
 
@@ -234,11 +235,6 @@ body.dark {
 				transform: scale(0.95, 0.95);
 			}
 
-			.name_icon {
-				width: 20px;
-				height: 20px;
-			}
-
 			label {
 				width: 100%;
 				height: 100%;
@@ -286,11 +282,6 @@ body.dark {
 						transition-timing-function: ease-in-out;
 					}
 				}
-			}
-
-			.logout_icon {
-				width: 20px;
-				height: 20px;
 			}
 		}
 
@@ -390,7 +381,7 @@ body.dark {
 			margin-left: 10px;
 
 			p {
-				margin-left: 20px;
+				margin-left: 15px;
 			}
 		}
 
@@ -398,6 +389,12 @@ body.dark {
 			align-self: flex-start;
 			margin-top: 10px;
 			margin-left: auto;
+		}
+	}
+
+	.contact.no_last_message {
+		div p {
+			display: none;
 		}
 	}
 
@@ -416,10 +413,16 @@ body.dark {
 	animation: panel-close 0.5s forwards ease-in-out;
 
 	.head {
+		justify-content: center;
+		img {
+			display: none;
+		}
 		div:first-of-type {
 			display: none;
 		}
-		justify-content: center;
+		div:last-of-type {
+			margin-left: 0;
+		}
 		.settings_icon {
 			display: none;
 		}
@@ -432,9 +435,7 @@ body.dark {
 		justify-content: center;
 	}
 	.contacts_list .contact {
-		h2 {
-			display: block;
-		}
+		padding: 5px;
 		div {
 			display: none;
 		}
@@ -459,10 +460,11 @@ body.dark {
 	.chat_title {
 		width: 100%;
 		height: 70px;
+		min-height: 70px;
 		margin: 10px;
 		padding: 10px;
 		padding-left: 20px;
-		margin-bottom: 0;
+		margin-bottom: auto;
 
 		background-color: var(--card-background);
 		color: var(--text);
@@ -479,23 +481,27 @@ body.dark {
 		}
 	}
 
+	.smooth_scroll {
+		scroll-behavior: smooth;
+	}
+
 	.chat {
 		width: 100%;
-		height: 100%;
+		height: fit-content;
 		margin-bottom: 5px;
 		padding: 5px;
 		overflow: hidden;
 		overflow-y: scroll;
-		scroll-behavior: smooth;
 		&::-webkit-scrollbar {
 			display: none;
 		}
 
 		display: flex;
-		flex-direction: column-reverse;
+		flex-direction: column;
 		gap: 10px;
 
 		.message {
+			position: relative;
 			width: fit-content;
 			max-width: 50%;
 			height: fit-content;
@@ -505,24 +511,47 @@ body.dark {
 
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 
-			//* fix string overflow
-
 			p {
 				overflow-wrap: break-word;
 			}
+
+			&:hover .message_time {
+				opacity: 1;
+			}
+		}
+
+		.message_time {
+			position: absolute;
+			width: max-content;
+			height: min-content;
+			font-size: small;
+			top: 50%;
+			transform: translateY(-50%);
+			transition: opacity;
+			transition-duration: 0.3s;
+			transition-timing-function: ease-in-out;
+			opacity: 0;
 		}
 
 		.message_left {
+			//! set animations animation: left-message-load 0.5s ease-in-out forwards;
 			background-color: var(--friend-message);
 			color: var(--friend-message-text);
-			//! set animations animation: left-message-load 0.5s ease-in-out forwards;
+
+			.message_time {
+				left: calc(100% + 10px);
+			}
 		}
 
 		.message_right {
+			//! set animations animation: right-message-load 0.5s ease-in-out forwards;
 			align-self: flex-end;
 			background-color: var(--my-messages);
 			color: var(--my-message-text);
-			//! set animations animation: right-message-load 0.5s ease-in-out forwards;
+
+			.message_time {
+				right: calc(100% + 10px);
+			}
 		}
 	}
 
@@ -570,6 +599,11 @@ body.dark {
 			transform: scale(0.93, 0.93);
 		}
 	}
+}
+
+.no_contact_selected {
+	justify-content: center;
+	align-items: center;
 }
 
 .acrylic {
@@ -788,8 +822,13 @@ body.dark {
 .profile_pic {
 	width: 35px;
 	height: 35px;
-	background-color: green;
 	border-radius: 50%;
+	object-fit: cover;
+}
+
+.settings_li_icon {
+	width: 20px;
+	height: 20px;
 }
 
 @media screen and (max-width: 800px) {

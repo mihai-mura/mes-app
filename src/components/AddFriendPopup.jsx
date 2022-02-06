@@ -57,7 +57,7 @@ function AddFriendPopup(props) {
 			<input type='text' name='search-friend' autoFocus id='search-friend' placeholder='Search Friend' onChange={inputOnChange} />
 			<div className='searched_users_list'>
 				{list.map((item, index) => (
-					<NewFriend key={index} id={item._id} name={`${item.firstName} ${item.lastName}`} onClick={addFriend} />
+					<NewFriend key={index} _id={item._id} name={`${item.firstName} ${item.lastName}`} onClick={addFriend} />
 				))}
 			</div>
 			<footer>

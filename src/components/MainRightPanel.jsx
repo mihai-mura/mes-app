@@ -1,16 +1,19 @@
-import { useContext } from 'react';
-import { useEffect, useState } from 'react';
-import { ContextMessages, ContextSelectedFriend } from '../AppContext';
+import { useContext, useRef, useEffect, useState } from 'react';
+import { ContextDarkTheme, ContextLoggedUser, ContextMessages, ContextSelectedFriend } from '../AppContext';
 import Chat from './Chat';
 import ChatTitle from './ChatTitle';
 import Message from './Message';
 import { BiSend } from 'react-icons/bi';
+import logo from '../style/logo.svg';
+import socket from '../services/socketio';
 
 function MainRightPannel(props) {
+	const { loggedUser } = useContext(ContextLoggedUser);
 	const { selectedFriend } = useContext(ContextSelectedFriend);
+	const { messages, setMessages } = useContext(ContextMessages);
 	const [inputMessage, setInputMessage] = useState('');
 
-	const { messages, setMessages } = useContext(ContextMessages);
+	const chat = useRef();
 
 	//enter button
 	useEffect(() => {
@@ -25,53 +28,79 @@ function MainRightPannel(props) {
 		};
 	});
 
-	//! set initial messages
+	//scroll when message
 	useEffect(() => {
-		setMessages([
-			<Message message='Lorem ipsum dolor sit amet.' />,
-			<Message message='Lorem ipsum dolor sit amet.' right={true} />,
-			<Message message='Lorem ipsum dolor sit amet.' right={true} />,
-			<Message message='Lorem ipsum dolor sit amet.' right={true} />,
-			<Message message='Lorem ipsum dolor sit amet.' />,
-			<Message message='Lorem ipsum dolor sit amet.' />,
-			<Message message='Lorem ipsum dolor sit amet.' right={true} />,
-		]);
-	}, []);
+		if (selectedFriend._id) chat.current.scrollTop = chat.current.scrollHeight;
+	}, [messages]);
+
+	useEffect(async () => {
+		const res = await fetch(`${process.env.REACT_APP_API_URI}/messages/all/${selectedFriend.messagesCollection}`, {
+			headers: {
+				Authorization: `Bearer ${sessionStorage.getItem('user-token') || localStorage.getItem('user-token')}`,
+			},
+		});
+		const mes = await res.json();
+
+		setMessages(mes);
+	}, [selectedFriend]);
 
 	function inputOnChange(event) {
 		setInputMessage(event.target.value);
 	}
 
-	//! message transition corection
-	//! message send
 	function sendMessage() {
 		if (inputMessage !== '') {
-			setMessages([<Message message={inputMessage} right={true} />, ...messages]);
+			setMessages((prevMessages) => [
+				...prevMessages,
+				{
+					_id: 'localMes',
+					message: inputMessage,
+					user: loggedUser._id,
+					createdAt: new Date().toISOString(),
+				},
+			]);
+			socket.emit('message', {
+				from: loggedUser._id,
+				to: selectedFriend._id,
+				collection: selectedFriend.messagesCollection,
+				message: inputMessage,
+			});
 			setInputMessage('');
 		}
 	}
 
-	const panelClass = `right_panel ${props.mobileShowPanel ? 'mobile_show' : 'mobile_no_show'}`;
-
-	return (
-		<div className={panelClass}>
-			<ChatTitle fname={selectedFriend.fname} lname={selectedFriend.lname} mobileMenuClick={props.mobileMenuClick} />
-			<Chat messages={messages} />
-			<div className='bottom_input'>
-				<input
-					className='message_input'
-					type='text'
-					name='message'
-					id='message'
-					placeholder='Message'
-					onChange={inputOnChange}
-					value={inputMessage}
-					autoFocus
+	if (selectedFriend._id) {
+		return (
+			<div className={`right_panel ${props.mobileShowPanel ? 'mobile_show' : 'mobile_no_show'}`}>
+				<ChatTitle
+					_id={selectedFriend._id}
+					fname={selectedFriend.fname}
+					lname={selectedFriend.lname}
+					mobileMenuClick={props.mobileMenuClick}
 				/>
-				<BiSend className='send_icon' onClick={sendMessage} />
+				<Chat refprop={chat} />
+				<div className='bottom_input'>
+					<input
+						className='message_input'
+						type='text'
+						name='message'
+						id='message'
+						placeholder='Message'
+						onChange={inputOnChange}
+						value={inputMessage}
+						autoFocus
+					/>
+					<BiSend className='send_icon' onClick={sendMessage} />
+				</div>
 			</div>
-		</div>
-	);
+		);
+	} else {
+		return (
+			<div className={`right_panel no_contact_selected ${props.mobileShowPanel ? 'mobile_show' : 'mobile_no_show'}`}>
+				{<img src={logo} width={150} />}
+			</div>
+		);
+	}
 }
 
 export default MainRightPannel;

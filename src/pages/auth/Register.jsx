@@ -8,9 +8,15 @@ function Register() {
 	const { setLoggedUser } = useContext(ContextLoggedUser);
 	const navigate = useNavigate();
 
-	//check if user details are remembered
-	useEffect(() => {
-		setUserContextAndRedirect();
+	useEffect(async () => {
+		//try server connection
+		try {
+			//check if user details are remembered
+			await setUserContextAndRedirect();
+		} catch (error) {
+			if (error.message === 'Failed to fetch') navigate('/server-down');
+			else throw error;
+		}
 	}, []);
 
 	async function handleRegister(fname, lname, email, passwd) {
@@ -47,12 +53,10 @@ function Register() {
 			if (res.status === 200) {
 				const user = await res.json();
 				await setLoggedUser({
-					id: user._id,
+					_id: user._id,
 					email: user.email,
 					fname: user.fname,
 					lname: user.lname,
-					friends: user.friends,
-					darkTheme: user.darkTheme,
 				});
 				navigate('/mes');
 			}

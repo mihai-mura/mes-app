@@ -16,11 +16,11 @@ function ContactsList(props) {
 			{friends.map((item, index) => (
 				<li key={index}>
 					<Contact
+						_id={item._id}
 						email={item.email}
 						fname={item.firstName}
 						lname={item.lastName}
-						lastMessage='Last message...'
-						lastMessageTime='00:00'
+						messagesCollection={item.messagesCollection}
 						setMobileShowPanel={props.setMobileShowPanel}
 					/>
 				</li>

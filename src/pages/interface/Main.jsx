@@ -6,30 +6,29 @@ import { ContextDarkTheme, ContextFriends, ContextLoggedUser, ContextMessages, C
 import { useNavigate } from 'react-router-dom';
 import AddFriendPopup from '../../components/AddFriendPopup';
 import ChangeNamePopup from '../../components/ChangeNamePopup';
+import ChangePasswordPopup from '../../components/ChangePasswordPopup';
+import socket from '../../services/socketio';
 
 function Main() {
 	const { darkTheme, setDarkTheme } = useContext(ContextDarkTheme);
 	const { loggedUser, setLoggedUser } = useContext(ContextLoggedUser);
 	const { friends, setFriends } = useContext(ContextFriends);
-	const { setSelectedFriend } = useContext(ContextSelectedFriend);
-	const navigate = useNavigate();
+	const { selectedFriend, setSelectedFriend } = useContext(ContextSelectedFriend);
+	const { messages, setMessages } = useContext(ContextMessages);
+	const [mobilePanelOpen, setMobilePanelOpen] = useState(true);
 	const [searchFriendPopup, setSearchFriendPopup] = useState(false);
 	const [changeNamePopup, setChangeNamePopup] = useState(false);
-	const [mobilePanelOpen, setMobilePanelOpen] = useState(true);
+	const [passwordChangePopup, setPasswordChangePopup] = useState(false);
+	const navigate = useNavigate();
 
 	useEffect(async () => {
-		//check if user details are remembered
-		await checkTokenAndSetContext();
-		await getFriendsAndSetContext();
-
-		//no initial selected friend if on mobile
-		if (window.innerWidth > 800) {
-			//! initialize the first selected friend
-			// setSelectedFriend({
-			// 	email: friends[0].email,
-			// 	fname: friends[0].fname,
-			// 	lname: friends[0].lname,
-			// });
+		//try server connection
+		try {
+			await checkTokenAndSetContext();
+			await getFriendsAndSetContext();
+		} catch (error) {
+			if (error.message === 'Failed to fetch') navigate('/server-down');
+			else throw error;
 		}
 	}, []);
 
@@ -37,6 +36,19 @@ function Main() {
 	useEffect(() => {
 		darkTheme ? document.body.classList.add('dark') : document.body.classList.remove('dark');
 	}, [darkTheme]);
+
+	//recieve message
+	useEffect(() => {
+		socket.on('message', async (data) => {
+			if (data.user === selectedFriend._id) {
+				setMessages((prevMessages) => [...prevMessages, data]);
+			}
+		});
+
+		return () => {
+			socket.off('message');
+		};
+	}, [selectedFriend]);
 
 	//*get users friends
 	const getFriendsAndSetContext = async () => {
@@ -63,14 +75,14 @@ function Main() {
 			if (res.status === 200) {
 				const user = await res.json();
 				await setLoggedUser({
-					id: user._id,
+					_id: user._id,
 					email: user.email,
 					fname: user.fname,
 					lname: user.lname,
-					friends: user.friends,
-					darkTheme: user.darkTheme,
 				});
 				await setDarkTheme(user.darkTheme);
+				//connect ws
+				socket.emit('userLogin', user._id);
 			}
 		} else {
 			navigate('/login');
@@ -80,13 +92,12 @@ function Main() {
 	function userLogout() {
 		if (localStorage.getItem('user-token')) localStorage.removeItem('user-token');
 		else sessionStorage.removeItem('user-token');
+		socket.emit('userLogout', loggedUser._id);
 		setLoggedUser({
 			email: null,
 			fname: null,
 			lname: null,
-			id: null,
-			friends: null,
-			darkTheme: null,
+			_id: null,
 		});
 		navigate('/login');
 	}
@@ -99,12 +110,18 @@ function Main() {
 		setChangeNamePopup(!changeNamePopup);
 	}
 
+	function togglePasswordChangePopup() {
+		setPasswordChangePopup(!passwordChangePopup);
+	}
+
 	function mobileMenuClick() {
 		setMobilePanelOpen(!mobilePanelOpen);
 		setSelectedFriend({
+			_id: null,
 			email: null,
 			fname: null,
 			lname: null,
+			messagesCollection: null,
 		});
 	}
 
@@ -116,6 +133,7 @@ function Main() {
 				logout={userLogout}
 				openSearchFriendPopup={toggleSearchFriendPopup}
 				openChangeNamePopup={toggleChangeNamePopup}
+				openChangePasswordPopup={togglePasswordChangePopup}
 			/>
 			<MainRightPanel mobileShowPanel={mobilePanelOpen ? false : true} mobileMenuClick={mobileMenuClick} />
 			{changeNamePopup ? (
@@ -128,6 +146,12 @@ function Main() {
 				<>
 					<div className='acrylic' onClick={toggleSearchFriendPopup} />
 					<AddFriendPopup refreshContacts={getFriendsAndSetContext} toggle={toggleSearchFriendPopup} />
+				</>
+			) : null}
+			{passwordChangePopup ? (
+				<>
+					<div className='acrylic' onClick={togglePasswordChangePopup} />
+					<ChangePasswordPopup toggle={togglePasswordChangePopup} />
 				</>
 			) : null}
 		</div>

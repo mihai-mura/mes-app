@@ -42,12 +42,10 @@ function ChangeNamePopup(props) {
 			});
 
 			setLoggedUser({
-				id: loggedUser._id,
+				_id: loggedUser._id,
 				email: loggedUser.email,
 				fname: fnameForChange,
 				lname: lnameForChange,
-				friends: loggedUser.friends,
-				darkTheme: loggedUser.darkTheme,
 			});
 			props.toggle();
 		} else {

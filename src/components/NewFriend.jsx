@@ -2,13 +2,12 @@ import { AiOutlineUserAdd } from 'react-icons/ai';
 
 function NewFriend(props) {
 	function handleClick() {
-		props.onClick(props.id);
+		props.onClick(props._id);
 	}
 
-	//! profile pic
 	return (
 		<div className='newfriend' onClick={handleClick}>
-			<img className='profile_pic' />
+			<img className='profile_pic' src={`${process.env.REACT_APP_API_URI}/users/profilePic/${props._id}`} />
 			<p>{props.name}</p>
 			<AiOutlineUserAdd />
 		</div>

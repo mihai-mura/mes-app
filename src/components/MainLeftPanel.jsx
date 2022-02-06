@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 function MainLeftPannel(props) {
 	const { setDarkTheme } = useContext(ContextDarkTheme);
-	const { loggedUser, setLoggedUser } = useContext(ContextLoggedUser);
+	const { loggedUser } = useContext(ContextLoggedUser);
 	const [panelOpen, setPanelOpen] = useState(true);
 	const [settingsOpen, setSettingsOpen] = useState(false);
 
@@ -36,21 +36,18 @@ function MainLeftPannel(props) {
 				value: event.target.checked,
 			}),
 		});
-		setLoggedUser({
-			id: loggedUser._id,
-			email: loggedUser.email,
-			fname: loggedUser.fname,
-			lname: loggedUser.lname,
-			friends: loggedUser.friends,
-			darkTheme: event.target.checked,
-		});
 	}
 
 	const panelClass = `${panelOpen ? 'left_panel left_panel_open' : 'left_panel left_panel_closed'} ${
 		props.mobileShowPanel ? 'mobile_show' : 'mobile_noshow'
 	}`;
 	const listItem = settingsOpen ? (
-		<UserSettings logout={props.logout} openChangeNamePopup={props.openChangeNamePopup} handleThemeChange={handleThemeChange} />
+		<UserSettings
+			logout={props.logout}
+			openChangePasswordPopup={props.openChangePasswordPopup}
+			openChangeNamePopup={props.openChangeNamePopup}
+			handleThemeChange={handleThemeChange}
+		/>
 	) : (
 		<ContactsList openSearchPopup={props.openSearchFriendPopup} setMobileShowPanel={props.setMobileShowPanel} />
 	);
