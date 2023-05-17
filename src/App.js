@@ -15,7 +15,7 @@ function App() {
 					<Route exact path='/register' element={<Register />} />
 					<Route
 						exact
-						path='/mes'
+						path='/mess'
 						element={
 							<DarkTheme>
 								<Friends>

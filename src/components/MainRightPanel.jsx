@@ -1,8 +1,7 @@
 import { useContext, useRef, useEffect, useState } from 'react';
-import { ContextDarkTheme, ContextLoggedUser, ContextMessages, ContextSelectedFriend } from '../AppContext';
+import { ContextLoggedUser, ContextMessages, ContextSelectedFriend } from '../AppContext';
 import Chat from './Chat';
 import ChatTitle from './ChatTitle';
-import Message from './Message';
 import { BiSend } from 'react-icons/bi';
 import logo from '../style/logo.svg';
 import socket from '../services/socketio';
@@ -33,15 +32,16 @@ function MainRightPannel(props) {
 		if (selectedFriend._id) chat.current.scrollTop = chat.current.scrollHeight;
 	}, [messages]);
 
-	useEffect(async () => {
-		const res = await fetch(`${process.env.REACT_APP_API_URI}/messages/all/${selectedFriend.messagesCollection}`, {
-			headers: {
-				Authorization: `Bearer ${sessionStorage.getItem('user-token') || localStorage.getItem('user-token')}`,
-			},
-		});
-		const mes = await res.json();
-
-		setMessages(mes);
+	useEffect(() => {
+		(async () => {
+			const res = await fetch(`${process.env.REACT_APP_API_URI}/messages/all/${selectedFriend.messagesCollection}`, {
+				headers: {
+					Authorization: `Bearer ${sessionStorage.getItem('user-token') || localStorage.getItem('user-token')}`,
+				},
+			});
+			const mes = await res.json();
+			setMessages(mes);
+		})();
 	}, [selectedFriend]);
 
 	function inputOnChange(event) {

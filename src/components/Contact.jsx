@@ -10,61 +10,63 @@ function Contact(props) {
 	const [lastMessage, setLastMessage] = useState(null);
 
 	//get last message
-	useEffect(async () => {
-		//initial set
-		const res = await fetch(`${process.env.REACT_APP_API_URI}/messages/last/${props.messagesCollection}`, {
-			headers: {
-				Authorization: `Bearer ${sessionStorage.getItem('user-token') || localStorage.getItem('user-token')}`,
-			},
-		});
-		const message = await res.json();
+	useEffect(() => {
+		(async () => {
+			//initial set
+			const res = await fetch(`${process.env.REACT_APP_API_URI}/messages/last/${props.messagesCollection}`, {
+				headers: {
+					Authorization: `Bearer ${sessionStorage.getItem('user-token') || localStorage.getItem('user-token')}`,
+				},
+			});
+			const message = await res.json();
 
-		if (message) {
-			//format date
-			let mesDate = new Date(message.createdAt);
-			const today = new Date();
+			if (message) {
+				//format date
+				let mesDate = new Date(message.createdAt);
+				const today = new Date();
 
-			//same day => only time
-			if (
-				mesDate.getDate() === today.getDate() &&
-				mesDate.getMonth() === today.getMonth() &&
-				mesDate.getFullYear() === today.getFullYear()
-			) {
-				message.createdAt = mesDate.toLocaleString([], {
-					hour12: false,
-					hour: '2-digit',
-					minute: '2-digit',
-				});
-			} else if (mesDate.getFullYear() !== today.getFullYear()) {
-				// different year => only year
-				message.createdAt = mesDate.toLocaleString([], {
-					year: 'numeric',
-				});
-			} else {
-				message.createdAt = mesDate.toLocaleString([], {
-					hour12: false,
-					hour: '2-digit',
-					minute: '2-digit',
-					month: 'short',
-					day: '2-digit',
-				});
+				//same day => only time
+				if (
+					mesDate.getDate() === today.getDate() &&
+					mesDate.getMonth() === today.getMonth() &&
+					mesDate.getFullYear() === today.getFullYear()
+				) {
+					message.createdAt = mesDate.toLocaleString([], {
+						hour12: false,
+						hour: '2-digit',
+						minute: '2-digit',
+					});
+				} else if (mesDate.getFullYear() !== today.getFullYear()) {
+					// different year => only year
+					message.createdAt = mesDate.toLocaleString([], {
+						year: 'numeric',
+					});
+				} else {
+					message.createdAt = mesDate.toLocaleString([], {
+						hour12: false,
+						hour: '2-digit',
+						minute: '2-digit',
+						month: 'short',
+						day: '2-digit',
+					});
+				}
+
+				setLastMessage(message);
 			}
 
-			setLastMessage(message);
-		}
+			//listen for last message
+			socket.on('last-message', (data) => {
+				if (data.user === props._id) {
+					data.createdAt = new Date(data.createdAt).toLocaleTimeString([], {
+						hour12: false,
+						hour: '2-digit',
+						minute: '2-digit',
+					});
 
-		//listen for last message
-		socket.on('last-message', (data) => {
-			if (data.user === props._id) {
-				data.createdAt = new Date(data.createdAt).toLocaleTimeString([], {
-					hour12: false,
-					hour: '2-digit',
-					minute: '2-digit',
-				});
-
-				setLastMessage(data);
-			}
-		});
+					setLastMessage(data);
+				}
+			});
+		})();
 
 		return () => {
 			socket.off('last-message');
@@ -139,7 +141,9 @@ function Contact(props) {
 				<p>
 					{lastMessage
 						? `${lastMessage.user === loggedUser._id ? 'You:' : `${props.fname}:`} ${
-								lastMessage.message.length > 10 ? `${lastMessage.message.substring(0, 10)}...` : lastMessage.message
+								lastMessage.message.length > 10
+									? `${lastMessage.message.substring(0, 10)}...`
+									: lastMessage.message
 						  }`
 						: ''}
 				</p>

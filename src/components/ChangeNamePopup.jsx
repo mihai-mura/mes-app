@@ -58,8 +58,8 @@ function ChangeNamePopup(props) {
 			<input type='text' name='fname' id='fname' placeholder='First name' onChange={fnameOnChange} />
 			<input type='text' name='lname' id='lname' placeholder='Last name' onChange={lnameOnChange} />
 			<footer>
-				<button onClick={props.toggle}>Exit</button>
-				<button onClick={changeName}>Ok</button>
+				<button onClick={props.toggle}>Cancel</button>
+				<button onClick={changeName}>Confirm</button>
 			</footer>
 		</div>
 	);

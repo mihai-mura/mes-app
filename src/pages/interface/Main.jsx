@@ -21,15 +21,17 @@ function Main() {
 	const [passwordChangePopup, setPasswordChangePopup] = useState(false);
 	const navigate = useNavigate();
 
-	useEffect(async () => {
-		//try server connection
-		try {
-			await checkTokenAndSetContext();
-			await getFriendsAndSetContext();
-		} catch (error) {
-			if (error.message === 'Failed to fetch') navigate('/server-down');
-			else throw error;
-		}
+	useEffect(() => {
+		(async () => {
+			//try server connection
+			try {
+				await checkTokenAndSetContext();
+				await getFriendsAndSetContext();
+			} catch (error) {
+				if (error.message === 'Failed to fetch') navigate('/server-down');
+				else throw error;
+			}
+		})();
 	}, []);
 
 	//set body dark class on theme change

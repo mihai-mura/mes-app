@@ -37,7 +37,7 @@ function UserSettings(props) {
 				body: formData,
 			});
 			if (res.status === 200) {
-				//! rerender profile pics
+				window.location.reload(false);
 			}
 		};
 	}

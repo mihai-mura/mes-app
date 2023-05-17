@@ -5,18 +5,20 @@ import { ContextLoggedUser } from '../../AppContext';
 import { useContext, useEffect } from 'react';
 
 function Register() {
-	const { setLoggedUser } = useContext(ContextLoggedUser);
 	const navigate = useNavigate();
+	const { setLoggedUser } = useContext(ContextLoggedUser);
 
-	useEffect(async () => {
-		//try server connection
-		try {
-			//check if user details are remembered
-			await setUserContextAndRedirect();
-		} catch (error) {
-			if (error.message === 'Failed to fetch') navigate('/server-down');
-			else throw error;
-		}
+	useEffect(() => {
+		(async () => {
+			//try server connection
+			try {
+				//check if user details are remembered
+				await setUserContextAndRedirect();
+			} catch (error) {
+				if (error.message === 'Failed to fetch') navigate('/server-down');
+				else throw error;
+			}
+		})();
 	}, []);
 
 	async function handleRegister(fname, lname, email, passwd) {
@@ -58,7 +60,7 @@ function Register() {
 					fname: user.fname,
 					lname: user.lname,
 				});
-				navigate('/mes');
+				navigate('/mess');
 			}
 		}
 	};

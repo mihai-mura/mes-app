@@ -54,8 +54,8 @@ function ChangePasswordPopup(props) {
 			<input type='password' name='passwd' id='passwd' placeholder='New password' onChange={passwordOnChange} />
 			<input type='password' name='passwd' id='passwd' placeholder='Confirm password' onChange={passwordConfOnChange} />
 			<footer>
-				<button onClick={props.toggle}>Exit</button>
-				<button onClick={changePassword}>Ok</button>
+				<button onClick={props.toggle}>Cancel</button>
+				<button onClick={changePassword}>Confirm</button>
 			</footer>
 		</div>
 	);

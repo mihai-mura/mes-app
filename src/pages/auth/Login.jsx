@@ -8,15 +8,17 @@ function Login() {
 	const { setLoggedUser } = useContext(ContextLoggedUser);
 	const navigate = useNavigate();
 
-	useEffect(async () => {
-		//try server connection
-		try {
-			//check if user details are remembered
-			await setUserContextAndRedirect();
-		} catch (error) {
-			if (error.message === 'Failed to fetch') navigate('/server-down');
-			else throw error;
-		}
+	useEffect(() => {
+		(async () => {
+			//try server connection
+			try {
+				//check if user details are remembered
+				await setUserContextAndRedirect();
+			} catch (error) {
+				if (error.message === 'Failed to fetch') navigate('/server-down');
+				else throw error;
+			}
+		})();
 	}, []);
 
 	async function handleLogin(email, passwd, rememberDetails) {
@@ -64,7 +66,7 @@ function Login() {
 					fname: user.fname,
 					lname: user.lname,
 				});
-				navigate('/mes');
+				navigate('/mess');
 			}
 		}
 	};
